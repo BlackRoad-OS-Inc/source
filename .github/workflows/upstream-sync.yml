@@ -1,0 +1,20 @@
+name: Upstream Sync
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync upstream repos
+        run: bash scripts/upstream-sync.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

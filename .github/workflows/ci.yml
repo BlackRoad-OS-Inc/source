@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source tree stats
+        run: |
+          echo "## Source Tree Stats" >> $GITHUB_STEP_SUMMARY
+          echo "- Directories: $(find . -type d | grep -v .git | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- Files: $(find . -type f | grep -v .git | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- Python: $(find . -name '*.py' | grep -v .git | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- JavaScript: $(find . -name '*.js' -o -name '*.ts' -o -name '*.jsx' | grep -v .git | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- Shell: $(find . -name '*.sh' | grep -v .git | wc -l)" >> $GITHUB_STEP_SUMMARY
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check structure
+        run: |
+          for dir in agents api apps brand cli config core data docs fleet infrastructure memory models nodes orchestrator runtime scripts services system tests users web; do
+            [ -d "$dir" ] && echo "✓ $dir/" || echo "✗ MISSING: $dir/"
+          done
