@@ -153,7 +153,7 @@ function ChainApp() {
       <div style={{ display: "flex", flexDirection: "column", gap: 3, maxHeight: 200, overflowY: "auto", scrollbarWidth: "none" }}>
         {blocks.map((b, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 8px", background: "rgba(255,255,255,0.015)", border: "1px solid rgba(255,255,255,0.03)", borderRadius: 6, borderLeft: `2px solid ${b.color}` }}>
-            <span style={{ fontFamily: mono, fontSize: 10, color: b.color, width: 52, flexShrink: 0 }}>#{b.idx.toString(16).toUpperCase()}</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 4, width: 52, flexShrink: 0 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: b.color, flexShrink: 0 }} /><span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>#{b.idx.toString(16).toUpperCase()}</span></span>
             <span style={{ fontFamily: body, fontSize: 12, color: "#484848", flex: 1 }}>{b.event}</span>
             <span style={{ fontFamily: mono, fontSize: 10, color: "#2a2a2a" }}>{b.agent}</span>
             <span style={{ fontFamily: mono, fontSize: 9, color: "#1e1e1e" }}>{b.ms}ms</span>
@@ -177,7 +177,7 @@ function AgentsApp() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
         <span style={{ fontFamily: mono, fontSize: 9, color: "#2a2a2a", textTransform: "uppercase", letterSpacing: "0.1em" }}>Agent fleet</span>
-        <span style={{ fontFamily: mono, fontSize: 9, color: "#00D4FF" }}>5/6 running</span>
+        <span style={{ display: "flex", alignItems: "center", gap: 4, fontFamily: mono, fontSize: 9 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} /><span style={{ color: "#f5f5f5" }}>5/6 running</span></span>
       </div>
       {agents.map((a, i) => (
         <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", background: "rgba(255,255,255,0.015)", border: "1px solid rgba(255,255,255,0.03)", borderRadius: 8 }}>
@@ -188,7 +188,7 @@ function AgentsApp() {
             <div style={{ fontFamily: sans, fontWeight: 600, fontSize: 13, color: "#c0c0c0", marginBottom: 1 }}>{a.name}</div>
             <div style={{ fontFamily: mono, fontSize: 10, color: "#2a2a2a" }}>{a.role}</div>
           </div>
-          <div style={{ fontFamily: mono, fontSize: 9, color: a.status === "running" ? "#00D4FF" : "#333", background: a.status === "running" ? "#00D4FF11" : "#11111166", padding: "2px 7px", borderRadius: 4 }}>{a.status}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 4, fontFamily: mono, fontSize: 9, background: a.status === "running" ? "#00D4FF11" : "#11111166", padding: "2px 7px", borderRadius: 4 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: a.status === "running" ? "#00D4FF" : "#333" }} /><span style={{ color: a.status === "running" ? "#f5f5f5" : "#333" }}>{a.status}</span></div>
         </div>
       ))}
     </div>
@@ -204,21 +204,21 @@ function TerminalApp() {
   const endRef = useRef(null);
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [lines]);
   const cmds = {
-    help:        [{ c:"#FF6B2B", t:"br-check  br-status  br-deploy  br-logs  agents  chain  whoami  clear" }],
-    whoami:      [{ c:"#8844FF", t:"blackroad@alexandria" }, { c:"#333", t:"BlackRoad CLI v3 · session active" }],
-    "br-status": [{ c:"#4488FF", t:"HTTP 200 OK · blackroad.io · 14ms" }, { c:"#00D4FF", t:"✓ Cloudflare edge healthy" }],
-    "br-check":  [{ c:"#484848", t:"x-robots-tag: noindex, noai, noimageai" }, { c:"#00D4FF", t:"✓ AI crawl protection active" }],
-    agents:      [{ c:"#8844FF", t:"5/6 agents running · Aura idle" }],
-    chain:       [{ c:"#FF2255", t:"HEIGHT: 0x4F2A · 812 events witnessed" }],
+    help:        [{ c:"#f5f5f5", t:"br-check  br-status  br-deploy  br-logs  agents  chain  whoami  clear" }],
+    whoami:      [{ c:"#f5f5f5", t:"blackroad@alexandria" }, { c:"#333", t:"BlackRoad CLI v3 · session active" }],
+    "br-status": [{ c:"#f5f5f5", t:"HTTP 200 OK · blackroad.io · 14ms" }, { c:"#c0c0c0", t:"✓ Cloudflare edge healthy" }],
+    "br-check":  [{ c:"#484848", t:"x-robots-tag: noindex, noai, noimageai" }, { c:"#c0c0c0", t:"✓ AI crawl protection active" }],
+    agents:      [{ c:"#f5f5f5", t:"5/6 agents running · Aura idle" }],
+    chain:       [{ c:"#f5f5f5", t:"HEIGHT: 0x4F2A · 812 events witnessed" }],
     pwd:         [{ c:"#686868", t:"/Users/alexa" }],
   };
   const run = () => {
     const cmd = inp.trim().toLowerCase();
     if (!cmd) return;
-    const echo = { c: "#FF6B2B", t: `❯ ${inp.trim()}` };
+    const echo = { c: "#f5f5f5", t: `❯ ${inp.trim()}` };
     setInp("");
     if (cmd === "clear") { setLines([]); return; }
-    const out = cmds[cmd] || [{ c: "#FF2255", t: `zsh: command not found: ${cmd}` }];
+    const out = cmds[cmd] || [{ c: "#f5f5f5", t: `zsh: command not found: ${cmd}` }];
     setLines(l => [...l, echo, ...out]);
   };
   return (
@@ -228,7 +228,7 @@ function TerminalApp() {
         <div ref={endRef} />
       </div>
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <span style={{ fontFamily: mono, fontSize: 12, color: "#FF6B2B" }}>❯</span>
+        <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>❯</span>
         <input value={inp} onChange={e => setInp(e.target.value)} onKeyDown={e => e.key === "Enter" && run()}
           placeholder="enter command…"
           style={{ flex: 1, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 8, padding: "7px 10px", fontFamily: mono, fontSize: 12, color: "#c0c0c0", outline: "none" }} />
@@ -249,7 +249,7 @@ function NotesApp() {
         <div style={{ display: "flex", gap: 6 }}>
           {["Save","Clear"].map((l, i) => (
             <button key={l} onClick={() => i === 1 && setText("")}
-              style={{ fontFamily: mono, fontSize: 10, color: i === 0 ? "#CC00AA" : "#333", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 6, padding: "4px 10px", cursor: "pointer" }}>{l}</button>
+              style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5", background: "rgba(255,255,255,0.03)", border: i === 0 ? "1px solid #CC00AA44" : "1px solid rgba(255,255,255,0.05)", borderRadius: 6, padding: "4px 10px", cursor: "pointer" }}>{l}</button>
           ))}
         </div>
       </div>

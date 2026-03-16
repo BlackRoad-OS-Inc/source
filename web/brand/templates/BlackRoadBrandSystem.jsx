@@ -357,7 +357,7 @@ function CodeBlock({ value, label }) {
           onClick={copy}
           style={{
             fontFamily: mono, fontSize: 9,
-            color: copied ? "#00D4FF" : "#555",
+            color: copied ? "#f5f5f5" : "#555",
             background: "none", border: "none", cursor: "pointer",
             textTransform: "uppercase", letterSpacing: "0.08em",
             transition: "color 0.2s",

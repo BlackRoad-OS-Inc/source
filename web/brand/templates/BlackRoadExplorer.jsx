@@ -147,7 +147,7 @@ function DetailDrawer({ row, onClose }) {
         </div>
 
         <div style={{ padding: "14px 20px", borderTop: "1px solid #0d0d0d", flexShrink: 0 }}>
-          <button onClick={copy} style={{ width: "100%", fontFamily: mono, fontSize: 9, color: copied ? "#00D4FF" : "#484848", background: "none", border: `1px solid ${copied ? "#00D4FF33" : "#1a1a1a"}`, padding: "9px 0", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 0.2s" }}>
+          <button onClick={copy} style={{ width: "100%", fontFamily: mono, fontSize: 9, color: copied ? "#f5f5f5" : "#484848", background: "none", border: `1px solid ${copied ? "#00D4FF33" : "#1a1a1a"}`, padding: "9px 0", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 0.2s" }}>
             {copied ? "✓ JSON copied" : "Copy JSON"}
           </button>
         </div>
@@ -188,7 +188,7 @@ function StatsBar({ rows }) {
       {stats.map(s => (
         <div key={s.label} style={{ flex: "1 1 80px", background: "#080808", border: "1px solid #0d0d0d", padding: "10px 14px" }}>
           <div style={{ fontFamily: mono, fontSize: 9, color: "#1e1e1e", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 5 }}>{s.label}</div>
-          <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 18, color: s.color, letterSpacing: "-0.02em", transition: "color 0.3s" }}>{s.value}</div>
+          <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 18, color: "#f5f5f5", letterSpacing: "-0.02em", transition: "color 0.3s" }}>{s.value}</div>
         </div>
       ))}
     </div>
@@ -215,7 +215,7 @@ function ColPicker({ visible, setVisible, onClose }) {
             onMouseLeave={e => e.currentTarget.style.background = "none"}
           >
             <div style={{ width: 12, height: 12, border: `1px solid ${on ? "#4488FF" : "#1a1a1a"}`, background: on ? "#4488FF22" : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.15s" }}>
-              {on && <span style={{ fontFamily: mono, fontSize: 8, color: "#4488FF" }}>✓</span>}
+              {on && <span style={{ fontFamily: mono, fontSize: 8, color: "#f5f5f5" }}>✓</span>}
             </div>
             <span style={{ fontFamily: inter, fontSize: 12, color: on ? "#c0c0c0" : "#484848" }}>{c.label}</span>
           </button>
@@ -338,7 +338,7 @@ export default function BlackRoadExplorer() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               {/* Live toggle */}
               <button onClick={() => setLiveRefresh(l => !l)}
-                style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 9, color: liveRefresh ? "#00D4FF" : "#2a2a2a", background: "none", border: `1px solid ${liveRefresh ? "#00D4FF33" : "#1a1a1a"}`, padding: "5px 10px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "all 0.2s" }}>
+                style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 9, color: liveRefresh ? "#f5f5f5" : "#2a2a2a", background: "none", border: `1px solid ${liveRefresh ? "#00D4FF33" : "#1a1a1a"}`, padding: "5px 10px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "all 0.2s" }}>
                 <div style={{ width: 5, height: 5, borderRadius: "50%", background: liveRefresh ? "#00D4FF" : "#1a1a1a", animation: liveRefresh ? "barPulse 1s infinite" : "none" }} />
                 {liveRefresh ? "Live" : "Live"}
               </button>
@@ -376,7 +376,7 @@ export default function BlackRoadExplorer() {
           ))}
 
           {hasFilters && (
-            <button onClick={clearFilters} style={{ fontFamily: mono, fontSize: 9, color: "#FF2255", background: "none", border: "1px solid #FF225522", padding: "8px 12px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.15s" }}
+            <button onClick={clearFilters} style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: "1px solid #FF225522", padding: "8px 12px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.15s" }}
               onMouseEnter={e => e.currentTarget.style.background = "#FF22550d"}
               onMouseLeave={e => e.currentTarget.style.background = "none"}
             >Clear</button>
@@ -432,7 +432,7 @@ export default function BlackRoadExplorer() {
                   >
                     {c.label}
                     {c.sortable && sortCol === c.id && (
-                      <span style={{ marginLeft: 4, color: "#4488FF" }}>{sortDir === "asc" ? "↑" : "↓"}</span>
+                      <span style={{ marginLeft: 4, color: "#f5f5f5" }}>{sortDir === "asc" ? "↑" : "↓"}</span>
                     )}
                   </th>
                 ))}
@@ -451,27 +451,28 @@ export default function BlackRoadExplorer() {
                     if (c.id === "id")        { cell = row.id;                    cellColor = "#2e2e2e"; }
                     else if (c.id === "timestamp") { cell = fmtTs(row.timestamp); cellColor = "#2a2a2a"; }
                     else if (c.id === "agent") {
-                      cellColor = agentColor(row.agent);
+                      const dotColor = agentColor(row.agent);
+                      cellColor = "#f5f5f5";
                       cell = (
                         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                          <span style={{ width: 4, height: 4, borderRadius: "50%", background: cellColor, flexShrink: 0, display: "inline-block" }} />
-                          <span style={{ color: cellColor, fontFamily: inter, fontSize: 12 }}>{row.agent}</span>
+                          <span style={{ width: 4, height: 4, borderRadius: "50%", background: dotColor, flexShrink: 0, display: "inline-block" }} />
+                          <span style={{ color: "#f5f5f5", fontFamily: inter, fontSize: 12 }}>{row.agent}</span>
                         </span>
                       );
                     }
                     else if (c.id === "event") { cell = row.event; cellColor = "#3e3e3e"; }
                     else if (c.id === "method") {
-                      cellColor = methodColor(row.method);
-                      cell = <span style={{ color: cellColor }}>{row.method}</span>;
+                      cellColor = "#f5f5f5";
+                      cell = <span style={{ color: "#f5f5f5" }}>{row.method}</span>;
                     }
                     else if (c.id === "route")  { cell = row.route;  cellColor = "#383838"; }
                     else if (c.id === "status") {
-                      cellColor = statusColor(row.status);
-                      cell = <span style={{ color: cellColor }}>{row.status}</span>;
+                      cellColor = "#f5f5f5";
+                      cell = <span style={{ color: "#f5f5f5" }}>{row.status}</span>;
                     }
                     else if (c.id === "latency") {
-                      cellColor = row.latency > 200 ? "#FF6B2B" : row.latency > 100 ? "#888" : "#2e2e2e";
-                      cell = <span style={{ color: cellColor }}>{row.latency}ms</span>;
+                      cellColor = "#c0c0c0";
+                      cell = <span style={{ color: "#c0c0c0" }}>{row.latency}ms</span>;
                     }
                     else if (c.id === "region") { cell = row.region; cellColor = "#2a2a2a"; }
                     else if (c.id === "tokens") { cell = row.tokens.toLocaleString(); cellColor = "#2e2e2e"; }

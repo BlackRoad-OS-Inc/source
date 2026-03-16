@@ -398,8 +398,8 @@ return (
         {/* Error */}
         {error && (
           <div style={{ display: "flex", gap: 10, padding: "12px 14px", background: "#FF225508", border: "1px solid #FF225522", margin: "8px 0 16px" }}>
-            <span style={{ fontFamily: mono, fontSize: 11, color: "#FF2255", flexShrink: 0 }}>✕</span>
-            <span style={{ fontFamily: inter, fontSize: 13, color: "#666", lineHeight: 1.5 }}>{error}</span>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#FF2255", flexShrink: 0, marginTop: 4 }} />
+            <span style={{ fontFamily: inter, fontSize: 13, color: "#f5f5f5", lineHeight: 1.5 }}>{error}</span>
           </div>
         )}
 

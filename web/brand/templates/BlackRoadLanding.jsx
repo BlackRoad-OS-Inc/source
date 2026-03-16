@@ -371,7 +371,8 @@ function Agents() {
                       <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 20, color: "#ebebeb", letterSpacing: "-0.02em" }}>{a.name}</div>
                       <div style={{ fontFamily: mono, fontSize: 10, color: "#383838", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: 4 }}>{a.role}</div>
                     </div>
-                    <div style={{ fontFamily: mono, fontSize: 11, color: a.color, background: a.color + "14", padding: "4px 10px", border: `1px solid ${a.color}22` }}>
+                    <div style={{ fontFamily: mono, fontSize: 11, color: "#f5f5f5", background: "transparent", padding: "4px 10px", border: `1px solid ${a.color}44`, display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: a.color, flexShrink: 0 }} />
                       {a.stat}
                     </div>
                   </div>
@@ -446,7 +447,10 @@ function Pricing() {
                 {p.featured && (
                   <div style={{ position: "absolute", top: -1, left: 24, right: 24, height: 2, background: GRAD }} />
                 )}
-                <div style={{ fontFamily: mono, fontSize: 9, color: p.color, textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 20 }}>{p.name}</div>
+                <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 20, display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
+                  {p.name}
+                </div>
                 <div style={{ marginBottom: 28 }}>
                   <span style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 38, color: "#f0f0f0", letterSpacing: "-0.04em" }}>{p.price}</span>
                   <span style={{ fontFamily: mono, fontSize: 11, color: "#383838", marginLeft: 6 }}>{p.cadence}</span>

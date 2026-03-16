@@ -260,7 +260,7 @@ function CodeBlock({ lang, snippetKey }) {
     <div style={{ background: "#050505", border: "1px solid #1a1a1a", margin: "20px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 14px", borderBottom: "1px solid #111" }}>
         <span style={{ fontFamily: mono, fontSize: 9, color: "#383838", textTransform: "uppercase", letterSpacing: "0.1em" }}>{lang}</span>
-        <button onClick={copy} style={{ fontFamily: mono, fontSize: 9, color: copied ? "#00D4FF" : "#444", background: "none", border: "none", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "color 0.2s" }}>
+        <button onClick={copy} style={{ fontFamily: mono, fontSize: 9, color: copied ? "#f5f5f5" : "#444", background: "none", border: "none", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "color 0.2s" }}>
           {copied ? "✓ copied" : "copy"}
         </button>
       </div>
@@ -326,7 +326,8 @@ function Badge({ label }) {
   const map = { new: "#00D4FF", beta: "#FF6B2B", "5 min": "#8844FF" };
   const color = map[label] || "#444";
   return (
-    <span style={{ fontFamily: mono, fontSize: 8, color, background: color + "18", border: `1px solid ${color}30`, padding: "2px 6px", borderRadius: 2, letterSpacing: "0.06em", textTransform: "uppercase", flexShrink: 0 }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontFamily: mono, fontSize: 8, color: "#f5f5f5", background: color + "18", border: `1px solid ${color}30`, padding: "2px 6px", borderRadius: 2, letterSpacing: "0.06em", textTransform: "uppercase", flexShrink: 0 }}>
+      <span style={{ width: 4, height: 4, borderRadius: "50%", background: color }} />
       {label}
     </span>
   );

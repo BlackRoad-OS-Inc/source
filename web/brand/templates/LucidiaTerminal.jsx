@@ -6,12 +6,12 @@ const STOPS = ["#FF6B2B","#FF2255","#CC00AA","#8844FF","#4488FF","#00D4FF"];
 
 // ─── Boot sequence — BlackRoad spectrum colors ───────────────────
 const BOOT_LINES = [
-  { text: "+ Layer 3 (agents/system) loaded",        color: "#FF6B2B", delay: 120  },
-  { text: "+ Layer 4 (deploy/orchestration) loaded", color: "#FF2255", delay: 240  },
-  { text: "+ Layer 5 (branches/environments) loaded",color: "#CC00AA", delay: 360  },
-  { text: "+ Layer 6 (lucidia core/memory) loaded",  color: "#8844FF", delay: 480  },
-  { text: "+ Layer 7 (orchestration) loaded",        color: "#4488FF", delay: 600  },
-  { text: "+ Layer 8 (network/API) loaded",          color: "#00D4FF", delay: 720  },
+  { text: "+ Layer 3 (agents/system) loaded",        color: "#f5f5f5", dot: "#FF6B2B", delay: 120  },
+  { text: "+ Layer 4 (deploy/orchestration) loaded", color: "#f5f5f5", dot: "#FF2255", delay: 240  },
+  { text: "+ Layer 5 (branches/environments) loaded",color: "#f5f5f5", dot: "#CC00AA", delay: 360  },
+  { text: "+ Layer 6 (lucidia core/memory) loaded",  color: "#f5f5f5", dot: "#8844FF", delay: 480  },
+  { text: "+ Layer 7 (orchestration) loaded",        color: "#f5f5f5", dot: "#4488FF", delay: 600  },
+  { text: "+ Layer 8 (network/API) loaded",          color: "#f5f5f5", dot: "#00D4FF", delay: 720  },
 ];
 
 // ─── Aliases visible in screenshot ───────────────────────────────
@@ -194,8 +194,8 @@ function timestamp() {
 function OutLine({ line }) {
   if (line.t === "gap")   return <div style={{ height: 6 }} />;
   if (line.t === "dim")   return <div style={{ fontFamily: mono, fontSize: 12, color: "#2a2a2a", lineHeight: 1.7 }}>{line.v}</div>;
-  if (line.t === "green") return <div style={{ fontFamily: mono, fontSize: 12, color: "#00D4FF", lineHeight: 1.7 }}>{line.v}</div>;
-  if (line.t === "err")   return <div style={{ fontFamily: mono, fontSize: 12, color: "#FF2255", lineHeight: 1.7 }}>{line.v}</div>;
+  if (line.t === "green") return <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 12, color: "#f5f5f5", lineHeight: 1.7 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />{line.v}</div>;
+  if (line.t === "err")   return <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 12, color: "#f5f5f5", lineHeight: 1.7 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: "#FF2255", flexShrink: 0 }} />{line.v}</div>;
   if (line.t === "out")   return <div style={{ fontFamily: mono, fontSize: 12, color: "#686868", lineHeight: 1.7 }}>{line.v}</div>;
 
   if (line.t === "kv") return (
@@ -208,18 +208,18 @@ function OutLine({ line }) {
   if (line.t === "agent") return (
     <div style={{ display: "flex", gap: 12, alignItems: "center", lineHeight: 1.7 }}>
       <div style={{ width: 4, height: 4, borderRadius: "50%", background: line.status === "running" ? line.color : "#333", flexShrink: 0 }} />
-      <span style={{ fontFamily: mono, fontSize: 12, color: line.color, minWidth: 96, flexShrink: 0 }}>{line.name}</span>
+      <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5", minWidth: 96, flexShrink: 0 }}>{line.name}</span>
       <span style={{ fontFamily: mono, fontSize: 12, color: "#2a2a2a", minWidth: 200, flexShrink: 0 }}>{line.role}</span>
-      <span style={{ fontFamily: mono, fontSize: 10, color: line.status === "running" ? "#00D4FF" : "#333" }}>{line.status}</span>
+      <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>{line.status}</span>
     </div>
   );
 
   if (line.t === "node") return (
     <div style={{ display: "flex", gap: 12, alignItems: "center", lineHeight: 1.7 }}>
-      <span style={{ fontFamily: mono, fontSize: 12, color: line.color, minWidth: 80, flexShrink: 0 }}>{line.name}</span>
+      <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5", minWidth: 80, flexShrink: 0 }}>{line.name}</span>
       <span style={{ fontFamily: mono, fontSize: 12, color: "#1e1e1e", minWidth: 120, flexShrink: 0 }}>{line.ip}</span>
       <span style={{ fontFamily: mono, fontSize: 12, color: "#2a2a2a", flex: 1 }}>{line.role}</span>
-      <span style={{ fontFamily: mono, fontSize: 10, color: "#00D4FF" }}>{line.status}</span>
+      <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>{line.status}</span>
     </div>
   );
 
@@ -233,9 +233,9 @@ function Prompt({ value, onChange, onSubmit, onUp, onDown }) {
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
-      <span style={{ fontFamily: mono, fontSize: 12, color: "#FF6B2B", flexShrink: 0 }}>blackroad</span>
-      <span style={{ fontFamily: mono, fontSize: 12, color: "#CC00AA", flexShrink: 0 }}>@</span>
-      <span style={{ fontFamily: mono, fontSize: 12, color: "#8844FF", flexShrink: 0 }}>alexandria</span>
+      <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5", flexShrink: 0 }}>blackroad</span>
+      <span style={{ fontFamily: mono, fontSize: 12, color: "#555", flexShrink: 0 }}>@</span>
+      <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5", flexShrink: 0 }}>alexandria</span>
       <span style={{ fontFamily: mono, fontSize: 12, color: "#333", flexShrink: 0 }}> ~ $&nbsp;</span>
       <input
         ref={ref}
@@ -410,7 +410,7 @@ export default function LucidiaTerminal() {
           {/* Boot sequence */}
           <div style={{ marginBottom: 4 }}>
             {BOOT_LINES.slice(0, bootIdx).map((l, i) => (
-              <div key={i} style={{ fontFamily: mono, fontSize: 12, color: l.color, lineHeight: 1.7, animation: "fadeIn 0.1s ease" }}>{l.text}</div>
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 12, color: l.color, lineHeight: 1.7, animation: "fadeIn 0.1s ease" }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: l.dot, flexShrink: 0 }} />{l.text}</div>
             ))}
           </div>
 
@@ -418,9 +418,9 @@ export default function LucidiaTerminal() {
           {booted && lines.length === 0 && (
             <div style={{ marginTop: 4 }}>
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 6 }}>
-                <span style={{ fontFamily: mono, fontSize: 12, color: "#FF6B2B" }}>blackroad</span>
-                <span style={{ fontFamily: mono, fontSize: 12, color: "#CC00AA" }}>@</span>
-                <span style={{ fontFamily: mono, fontSize: 12, color: "#8844FF" }}>alexandria</span>
+                <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>blackroad</span>
+                <span style={{ fontFamily: mono, fontSize: 12, color: "#555" }}>@</span>
+                <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>alexandria</span>
                 <span style={{ fontFamily: mono, fontSize: 12, color: "#333" }}>~ $</span>
                 <span style={{ fontFamily: mono, fontSize: 12, color: "#444" }}>pwd</span>
               </div>
@@ -434,9 +434,9 @@ export default function LucidiaTerminal() {
             <div key={bi} style={{ marginBottom: 8, animation: "fadeIn 0.15s ease" }}>
               {/* Prompt echo */}
               <div style={{ display: "flex", alignItems: "center", gap: 0, marginBottom: 2 }}>
-                <span style={{ fontFamily: mono, fontSize: 12, color: "#FF6B2B" }}>blackroad</span>
-                <span style={{ fontFamily: mono, fontSize: 12, color: "#CC00AA" }}>@</span>
-                <span style={{ fontFamily: mono, fontSize: 12, color: "#8844FF" }}>alexandria</span>
+                <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>blackroad</span>
+                <span style={{ fontFamily: mono, fontSize: 12, color: "#555" }}>@</span>
+                <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>alexandria</span>
                 <span style={{ fontFamily: mono, fontSize: 12, color: "#333" }}>&nbsp;~&nbsp;$&nbsp;</span>
                 <span style={{ fontFamily: mono, fontSize: 12, color: "#c0c0c0" }}>{block.prompt.cmd}</span>
                 <span style={{ fontFamily: mono, fontSize: 10, color: "#141414", marginLeft: "auto" }}>{block.prompt.ts}</span>
@@ -465,7 +465,7 @@ export default function LucidiaTerminal() {
           {booting && (
             <div style={{ display: "inline-flex", alignItems: "center", gap: 4, marginTop: 4 }}>
               <span style={{ fontFamily: mono, fontSize: 12, color: "#525252" }}>loading</span>
-              <span style={{ fontFamily: mono, fontSize: 12, color: "#8844FF", animation: "blink 1s step-end infinite" }}>▋</span>
+              <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5", animation: "blink 1s step-end infinite" }}>▋</span>
             </div>
           )}
 

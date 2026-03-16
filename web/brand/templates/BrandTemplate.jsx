@@ -253,7 +253,7 @@ function TokenSection() {
                 borderBottom: i < g.rows.length - 1 ? "1px solid rgba(100,140,255,0.06)" : "none",
                 background: i % 2 === 0 ? "#10102a" : "#0a0a1a",
               }}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#4488FF" }}>{token}</span>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#e8e8f0" }}>{token}</span>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <div style={{ width: 18, height: 18, background: value, border: "1px solid rgba(255,255,255,0.1)" }} />
                   <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#7070a0" }}>{value}</span>
@@ -291,8 +291,8 @@ function ComponentSection() {
             const styles = [
               { background: "#e8e8f0", color: "#0a0a1a", border: "1px solid transparent" },
               { background: "transparent", color: "#a8a8c8", border: "1px solid rgba(100,140,255,0.2)" },
-              { background: "rgba(255,34,85,0.12)", color: "#FF2255", border: "1px solid rgba(255,34,85,0.3)", boxShadow: "0 0 12px rgba(255,34,85,0.15)" },
-              { background: "rgba(0,212,255,0.1)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.3)", boxShadow: "0 0 12px rgba(0,212,255,0.2)" },
+              { background: "transparent", color: "#e8e8f0", border: "1px solid rgba(255,34,85,0.5)", boxShadow: "0 0 12px rgba(255,34,85,0.15)" },
+              { background: "transparent", color: "#e8e8f0", border: "1px solid rgba(0,212,255,0.5)", boxShadow: "0 0 12px rgba(0,212,255,0.2)" },
             ];
             return (
               <button key={label} style={{
@@ -357,7 +357,7 @@ function ComponentSection() {
               }} />
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                 <div style={{ width: 36, height: 36, background: a.color + "22", border: `1px solid ${a.color}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, color: a.color }}>{a.name[0]}</span>
+                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 14, color: "#e8e8f0" }}>{a.name[0]}</span>
                 </div>
                 <div style={{ width: 8, height: 8, borderRadius: "50%", background: statusColor[a.status], boxShadow: `0 0 8px ${statusColor[a.status]}` }} />
               </div>
@@ -399,10 +399,8 @@ export default function BrandTemplate() {
               Design System · v2.0 · Neon Noir
             </div>
             <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 42, margin: 0, letterSpacing: "-0.02em", lineHeight: 1 }}>
-              BlackRoad{" "}
-              <span style={{ backgroundImage: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                Brand System
-              </span>
+              BlackRoad Brand System
+              <div style={{ height: 3, background: GRADIENT, marginTop: 8, maxWidth: 200 }} />
             </h1>
           </div>
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#40406a", textAlign: "right", lineHeight: 2 }}>

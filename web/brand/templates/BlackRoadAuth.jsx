@@ -87,7 +87,7 @@ function Field({ label, type = "text", value, onChange, placeholder, error, hint
           >{show ? "hide" : "show"}</button>
         )}
       </div>
-      {error && <div style={{ fontFamily: inter, fontSize: 11, color: "#FF2255", marginTop: 5, lineHeight: 1.5 }}>{error}</div>}
+      {error && <div style={{ fontFamily: inter, fontSize: 11, color: "#f5f5f5", marginTop: 5, lineHeight: 1.5 }}><span style={{ display: "inline-block", width: 5, height: 5, borderRadius: "50%", background: "#FF2255", marginRight: 6, verticalAlign: "middle" }} />{error}</div>}
     </div>
   );
 }
@@ -265,7 +265,7 @@ function SignupView({ onSwitch, onSuccess }) {
           {[1,2,3].map(i => (
             <div key={i} style={{ flex: 1, height: 2, background: i <= strength ? strengthColors[strength] : "#111", transition: "background 0.3s", borderRadius: 2 }} />
           ))}
-          <span style={{ fontFamily: mono, fontSize: 9, color: strengthColors[strength], width: 40, textAlign: "right", transition: "color 0.3s" }}>{strengthLabels[strength]}</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 4, width: 52, justifyContent: "flex-end" }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: strengthColors[strength], transition: "background 0.3s" }} /><span style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", transition: "color 0.3s" }}>{strengthLabels[strength]}</span></span>
         </div>
       )}
 
@@ -273,13 +273,13 @@ function SignupView({ onSwitch, onSuccess }) {
       <div style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: errors.agreed ? 6 : 24, cursor: "pointer" }}
         onClick={() => { setAgreed(a => !a); setErrors(e => ({...e, agreed:""})); }}>
         <div style={{ width: 16, height: 16, border: `1px solid ${agreed ? "#8844FF" : errors.agreed ? "#FF2255" : "#1a1a1a"}`, background: agreed ? "#8844FF18" : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1, transition: "all 0.15s" }}>
-          {agreed && <span style={{ fontFamily: mono, fontSize: 10, color: "#8844FF" }}>✓</span>}
+          {agreed && <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>✓</span>}
         </div>
         <span style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a", lineHeight: 1.5 }}>
           I agree to the <span style={{ color: "#484848" }}>Terms of Service</span> and <span style={{ color: "#484848" }}>Privacy Policy</span>
         </span>
       </div>
-      {errors.agreed && <div style={{ fontFamily: inter, fontSize: 11, color: "#FF2255", marginBottom: 20, marginTop: -2 }}>{errors.agreed}</div>}
+      {errors.agreed && <div style={{ fontFamily: inter, fontSize: 11, color: "#f5f5f5", marginBottom: 20, marginTop: -2 }}><span style={{ display: "inline-block", width: 5, height: 5, borderRadius: "50%", background: "#FF2255", marginRight: 6, verticalAlign: "middle" }} />{errors.agreed}</div>}
 
       <GradBtn onClick={submit} loading={loading} disabled={!name || !email || !password}>Create account →</GradBtn>
 
@@ -310,9 +310,9 @@ function ForgotView({ onSwitch }) {
     <div style={{ animation: "fadeUp 0.3s ease both" }}>
       <div style={{ marginBottom: 28 }}>
         <div style={{ width: 48, height: 48, border: "1px solid #00D4FF33", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-          <span style={{ fontFamily: mono, fontSize: 20, color: "#00D4FF" }}>✓</span>
+          <span style={{ fontFamily: mono, fontSize: 20, color: "#f5f5f5" }}>✓</span>
         </div>
-        <div style={{ fontFamily: mono, fontSize: 9, color: "#00D4FF", textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 10 }}>Check your inbox</div>
+        <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 10, display: "flex", alignItems: "center", gap: 6 }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />Check your inbox</div>
         <h2 style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 24, color: "#f0f0f0", letterSpacing: "-0.03em", marginBottom: 8 }}>Reset link sent.</h2>
         <p style={{ fontFamily: inter, fontSize: 14, color: "#2a2a2a", lineHeight: 1.7 }}>
           We sent a password reset link to <span style={{ color: "#686868" }}>{email}</span>. Check your inbox and click the link within 15 minutes.
@@ -357,8 +357,8 @@ function SuccessView({ mode }) {
         ))}
       </div>
 
-      <div style={{ fontFamily: mono, fontSize: 9, color: "#00D4FF", textTransform: "uppercase", letterSpacing: "0.16em", marginBottom: 12 }}>
-        {mode === "login" ? "Authenticated" : "Account created"}
+      <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.16em", marginBottom: 12, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+        <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />{mode === "login" ? "Authenticated" : "Account created"}
       </div>
       <h2 style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 32, color: "#f0f0f0", letterSpacing: "-0.04em", marginBottom: 12 }}>
         {mode === "login" ? "Welcome back." : "You're in."}
@@ -375,7 +375,7 @@ function SuccessView({ mode }) {
           : ["Generating genesis hash", "Seeding soul chain", "Provisioning workspace"]
         ).map((s, i) => (
           <div key={i} style={{ display: "flex", gap: 10, alignItems: "center", animation: `fadeUp 0.3s ease ${i * 0.2}s both` }}>
-            <span style={{ fontFamily: mono, fontSize: 10, color: STOPS[i * 2] }}>✓</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: STOPS[i * 2] }} /><span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>✓</span></span>
             <span style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a" }}>{s}</span>
           </div>
         ))}

@@ -153,7 +153,7 @@ function CodeBlock({ lines, copyVal }) {
   return (
     <div style={{ background: "#050505", border: "1px solid #141414", overflow: "hidden", margin: "16px 0" }}>
       <div style={{ display: "flex", justifyContent: "flex-end", padding: "6px 12px", borderBottom: "1px solid #0d0d0d" }}>
-        <button onClick={copy} style={{ fontFamily: mono, fontSize: 9, color: copied ? "#00D4FF" : "#2a2a2a", background: "none", border: "none", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "color 0.2s" }}>
+        <button onClick={copy} style={{ fontFamily: mono, fontSize: 9, color: copied ? "#f5f5f5" : "#2a2a2a", background: "none", border: "none", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "color 0.2s" }}>
           {copied ? "✓ copied" : "copy"}
         </button>
       </div>
@@ -279,7 +279,7 @@ function StepCluster({ data, setData, onNext, onBack }) {
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
                   <span style={{ fontFamily: grotesk, fontWeight: 600, fontSize: 14, color: active ? "#d0d0d0" : "#484848" }}>{p.label}</span>
-                  {p.badge && <span style={{ fontFamily: mono, fontSize: 8, color: "#FF6B2B", background: "#FF6B2B18", border: "1px solid #FF6B2B28", padding: "2px 6px" }}>{p.badge}</span>}
+                  {p.badge && <span style={{ fontFamily: mono, fontSize: 8, color: "#f5f5f5", background: "#FF6B2B18", border: "1px solid #FF6B2B28", padding: "2px 6px", display: "inline-flex", alignItems: "center", gap: 4 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: "#FF6B2B", display: "inline-block", flexShrink: 0 }} />{p.badge}</span>}
                 </div>
                 <div style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a" }}>{p.sub}</div>
               </div>
@@ -318,7 +318,7 @@ function StepCluster({ data, setData, onNext, onBack }) {
             type="password"
           />
           <button onClick={testConnection} disabled={!data.kubeEndpoint || testing}
-            style={{ fontFamily: mono, fontSize: 9, color: tested ? "#00D4FF" : "#4488FF", background: "none", border: `1px solid ${tested ? "#00D4FF33" : "#4488FF33"}`, padding: "8px 16px", cursor: data.kubeEndpoint && !testing ? "pointer" : "not-allowed", textTransform: "uppercase", letterSpacing: "0.08em", transition: "all 0.15s", marginBottom: 12 }}
+            style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: `1px solid ${tested ? "#00D4FF33" : "#4488FF33"}`, padding: "8px 16px", cursor: data.kubeEndpoint && !testing ? "pointer" : "not-allowed", textTransform: "uppercase", letterSpacing: "0.08em", transition: "all 0.15s", marginBottom: 12 }}
           >{testing ? "Testing…" : tested ? "✓ Connected" : "Test connection"}</button>
         </div>
       )}
@@ -363,7 +363,7 @@ function StepAgents({ data, setData, onNext, onBack }) {
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
                   <span style={{ fontFamily: grotesk, fontWeight: 600, fontSize: 14, color: selected ? "#d0d0d0" : "#484848" }}>{a.name}</span>
-                  {a.rec && <span style={{ fontFamily: mono, fontSize: 8, color: a.color, background: a.color + "18", border: `1px solid ${a.color}28`, padding: "2px 6px" }}>recommended</span>}
+                  {a.rec && <span style={{ fontFamily: mono, fontSize: 8, color: "#f5f5f5", background: a.color + "18", border: `1px solid ${a.color}28`, padding: "2px 6px", display: "inline-flex", alignItems: "center", gap: 4 }}><span style={{ width: 4, height: 4, borderRadius: "50%", background: a.color, display: "inline-block", flexShrink: 0 }} />recommended</span>}
                 </div>
                 <div style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a" }}>{a.role}</div>
               </div>
@@ -378,7 +378,7 @@ function StepAgents({ data, setData, onNext, onBack }) {
               </select>
               {/* Checkbox */}
               <div style={{ width: 18, height: 18, border: `1px solid ${selected ? a.color : "#1a1a1a"}`, background: selected ? a.color + "22" : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.15s" }}>
-                {selected && <span style={{ fontFamily: mono, fontSize: 10, color: a.color }}>✓</span>}
+                {selected && <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>✓</span>}
               </div>
             </button>
           );
@@ -405,11 +405,11 @@ function StepApiKey({ data, setData, onNext, onBack }) {
       <p style={{ fontFamily: inter, fontSize: 13, color: "#3a3a3a", lineHeight: 1.7, marginBottom: 32 }}>This key authenticates all SDK and API requests from your workspace. Copy and store it securely — it won't be shown again.</p>
 
       <div style={{ background: "#FF6B2B08", border: "1px solid #FF6B2B1a", padding: "14px 16px", marginBottom: 20 }}>
-        <div style={{ fontFamily: mono, fontSize: 9, color: "#FF6B2B", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>⚠ Copy this key now</div>
+        <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: "#FF6B2B", display: "inline-block", flexShrink: 0 }} />Copy this key now</div>
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <code style={{ fontFamily: mono, fontSize: 13, color: "#909090", flex: 1, wordBreak: "break-all" }}>{FAKE_KEY}</code>
           <button onClick={copy}
-            style={{ fontFamily: mono, fontSize: 9, color: copied ? "#00D4FF" : "#484848", background: "none", border: `1px solid ${copied ? "#00D4FF33" : "#1a1a1a"}`, padding: "7px 14px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "all 0.2s", flexShrink: 0 }}
+            style={{ fontFamily: mono, fontSize: 9, color: copied ? "#f5f5f5" : "#484848", background: "none", border: `1px solid ${copied ? "#00D4FF33" : "#1a1a1a"}`, padding: "7px 14px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "all 0.2s", flexShrink: 0 }}
           >{copied ? "✓ Copied" : "Copy"}</button>
         </div>
       </div>
@@ -430,7 +430,7 @@ function StepApiKey({ data, setData, onNext, onBack }) {
       <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 24, padding: "12px 14px", background: "#080808", border: "1px solid #111", cursor: "pointer" }}
         onClick={() => setConfirmed(c => !c)}>
         <div style={{ width: 16, height: 16, border: `1px solid ${confirmed ? "#4488FF" : "#1a1a1a"}`, background: confirmed ? "#4488FF22" : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1, transition: "all 0.15s" }}>
-          {confirmed && <span style={{ fontFamily: mono, fontSize: 10, color: "#4488FF" }}>✓</span>}
+          {confirmed && <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>✓</span>}
         </div>
         <span style={{ fontFamily: inter, fontSize: 13, color: "#484848", lineHeight: 1.5 }}>I've saved my API key somewhere safe</span>
       </div>
@@ -486,7 +486,7 @@ function StepLaunch({ data }) {
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderBottom: "1px solid #0a0a0a" }}>
                 <div style={{ width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {t.done
-                    ? <span style={{ fontFamily: mono, fontSize: 11, color: "#00D4FF" }}>✓</span>
+                    ? <span style={{ fontFamily: mono, fontSize: 11, color: "#f5f5f5" }}>✓</span>
                     : <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#1a1a1a" }} />
                   }
                 </div>
@@ -537,7 +537,7 @@ function StepLaunch({ data }) {
                 onMouseEnter={e => e.currentTarget.style.borderColor = "#1a1a1a"}
                 onMouseLeave={e => e.currentTarget.style.borderColor = "#0d0d0d"}
               >
-                <span style={{ fontFamily: mono, fontSize: 10, color: "#4488FF", flexShrink: 0, width: 96 }}>{link}</span>
+                <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5", flexShrink: 0, width: 96 }}>{link}</span>
                 <span style={{ fontFamily: inter, fontSize: 13, color: "#383838" }}>{desc}</span>
               </div>
             ))}
@@ -646,7 +646,7 @@ export default function BlackRoadOnboarding() {
                   <div key={s.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 20px", borderLeft: active ? "2px solid #4488FF" : "2px solid transparent", transition: "border-color 0.2s" }}>
                     <span style={{ fontFamily: mono, fontSize: 11, color: done ? "#4488FF66" : active ? "#4488FF" : "#1a1a1a", width: 14, transition: "color 0.2s" }}>{s.icon}</span>
                     <span style={{ fontFamily: inter, fontSize: 13, color: done ? "#3a3a3a" : active ? "#d0d0d0" : "#242424", transition: "color 0.2s" }}>{s.label}</span>
-                    {done && <span style={{ fontFamily: mono, fontSize: 10, color: "#4488FF44", marginLeft: "auto" }}>✓</span>}
+                    {done && <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f544", marginLeft: "auto" }}>✓</span>}
                   </div>
                 );
               })}

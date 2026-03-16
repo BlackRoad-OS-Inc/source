@@ -212,7 +212,7 @@ function MetricCard({ m, active }) {
   return (
     <div style={{ background: "#080808", border: "1px solid #0d0d0d", padding: "20px 20px 18px", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: m.color + "55" }} />
-      <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: "clamp(22px, 3vw, 32px)", color: m.color, letterSpacing: "-0.03em", marginBottom: 6, transition: "color 0.3s" }}>{display}</div>
+      <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: "clamp(22px, 3vw, 32px)", color: "#f5f5f5", letterSpacing: "-0.03em", marginBottom: 6, transition: "color 0.3s" }}>{display}</div>
       <div style={{ fontFamily: inter, fontSize: 13, color: "#d0d0d0", marginBottom: 4 }}>{m.label}</div>
       <div style={{ fontFamily: mono, fontSize: 9, color: "#1e1e1e" }}>{m.sub}</div>
     </div>
@@ -222,7 +222,7 @@ function MetricCard({ m, active }) {
 // ─── Milestone card ───────────────────────────────────────────────
 function MilestoneCard({ m, active, onActivate }) {
   const statusLabel = { active: "In progress", upcoming: "Upcoming", future: "Planned" }[m.status];
-  const statusCol   = { active: "#FF6B2B",      upcoming: "#8844FF",  future: "#2a2a2a"  }[m.status];
+  const statusCol   = { active: "#f5f5f5",      upcoming: "#999",  future: "#2a2a2a"  }[m.status];
 
   return (
     <div
@@ -243,7 +243,7 @@ function MilestoneCard({ m, active, onActivate }) {
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 12, gap: 8 }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-              <span style={{ fontFamily: mono, fontSize: 11, color: active ? m.color : "#333", transition: "color 0.2s" }}>{m.version}</span>
+              <span style={{ fontFamily: mono, fontSize: 11, color: active ? "#f5f5f5" : "#333", transition: "color 0.2s" }}>{m.version}</span>
               <div style={{ width: 1, height: 10, background: "#1a1a1a" }} />
               <span style={{ fontFamily: mono, fontSize: 9, color: statusCol, textTransform: "uppercase", letterSpacing: "0.1em" }}>{statusLabel}</span>
             </div>
@@ -290,7 +290,7 @@ function StackLayer({ layer, idx, total }) {
         transition: "all 0.15s",
       }}
     >
-      <span style={{ fontFamily: mono, fontSize: 10, color: hover ? layer.color : "#2a2a2a", transition: "color 0.15s" }}>{layer.id}</span>
+      <span style={{ fontFamily: mono, fontSize: 10, color: hover ? "#f5f5f5" : "#2a2a2a", transition: "color 0.15s" }}>{layer.id}</span>
       <span style={{ fontFamily: grotesk, fontWeight: 600, fontSize: 13, color: hover ? "#d0d0d0" : "#484848", transition: "color 0.15s" }}>{layer.label}</span>
       <span style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a" }}>{layer.desc}</span>
     </div>
@@ -323,7 +323,7 @@ function PhaseRow({ phase, delay }) {
       <div style={{ width: 4, background: phase.color + "44", flexShrink: 0, borderRadius: 2, marginRight: 20 }} />
       <div style={{ flex: 1, padding: "16px 0", borderBottom: "1px solid #080808" }}>
         <div style={{ display: "flex", gap: 12, alignItems: "baseline", marginBottom: 5 }}>
-          <span style={{ fontFamily: mono, fontSize: 9, color: phase.color, textTransform: "uppercase", letterSpacing: "0.12em" }}>Phase {phase.n}</span>
+          <span style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.12em" }}>Phase {phase.n}</span>
           <span style={{ fontFamily: mono, fontSize: 9, color: "#1a1a1a" }}>{phase.label}</span>
         </div>
         <div style={{ fontFamily: grotesk, fontWeight: 600, fontSize: 16, color: "#686868", marginBottom: 4 }}>{phase.title}</div>
@@ -512,7 +512,7 @@ export default function BlackRoadRoadmap() {
               <div style={{ marginTop: 20, background: "#080808", border: "1px solid #0d0d0d", padding: "14px 16px", display: "flex", gap: 14, alignItems: "center" }}>
                 <div style={{ width: 2, height: 36, background: "#FF6B2B44" }} />
                 <div>
-                  <div style={{ fontFamily: mono, fontSize: 9, color: "#FF6B2B", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 5 }}>RoadChain witnessing</div>
+                  <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 5 }}>RoadChain witnessing</div>
                   <div style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a", lineHeight: 1.6 }}>Every scaffold execution receives a SHA-256 hash appended to the non-terminating append-only ledger. Every agent has a genesis hash. Nothing is deleted. Everything is witnessed.</div>
                 </div>
               </div>
@@ -574,7 +574,7 @@ export default function BlackRoadRoadmap() {
 
               {/* Core thesis */}
               <div style={{ borderLeft: "2px solid #FF6B2B33", paddingLeft: 24, marginBottom: 56 }}>
-                <div style={{ fontFamily: mono, fontSize: 9, color: "#FF6B2B", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 14 }}>Core thesis</div>
+                <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 14 }}>Core thesis</div>
                 <p style={{ fontFamily: grotesk, fontWeight: 600, fontSize: "clamp(16px, 3vw, 22px)", color: "#484848", lineHeight: 1.5, letterSpacing: "-0.02em" }}>
                   The universe is Change acting on Structure with Strength across Scales. This is not metaphor but mathematics — the Pauli algebra made ontological. Division creates disequilibrium. Integration drives toward equilibrium.
                 </p>

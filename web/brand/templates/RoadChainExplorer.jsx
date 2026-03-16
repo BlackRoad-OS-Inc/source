@@ -111,7 +111,7 @@ function fmtSize(b) { return b >= 1024 ? (b / 1024).toFixed(1) + " KB" : b + " B
 function HashChip({ hash, full, color }) {
   const [copied, copy] = useCopy(hash);
   return (
-    <span onClick={copy} title={hash} style={{ fontFamily: mono, fontSize: 11, color: copied ? "#00D4FF" : (color || "#2e2e2e"), cursor: "pointer", transition: "color 0.2s" }}>
+    <span onClick={copy} title={hash} style={{ fontFamily: mono, fontSize: 11, color: copied ? "#f5f5f5" : (color || "#2e2e2e"), cursor: "pointer", transition: "color 0.2s" }}>
       {copied ? "✓ copied" : (full ? hash : shortHash(hash))}
     </span>
   );
@@ -127,7 +127,7 @@ function LiveTicker({ blocks }) {
     <div style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: mono, fontSize: 10, overflow: "hidden" }}>
       <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", animation: "pulse 1.2s ease-in-out infinite", flexShrink: 0 }} />
       <span style={{ color: "#1e1e1e" }}>#{b.index}</span>
-      <span style={{ color: b.agent.color }}>{b.agent.name}</span>
+      <span style={{ color: "#f5f5f5" }}>{b.agent.name}</span>
       <span style={{ color: "#141414" }}>·</span>
       <span style={{ color: "#1a1a1a" }}>{b.eventType.label}</span>
       <span style={{ color: "#141414" }}>·</span>
@@ -150,7 +150,7 @@ function BlockRow({ block, onClick, selected }) {
           <span style={{ fontFamily: mono, fontSize: 9, color: block.eventType.color }}>{block.eventType.icon}</span>
           <span style={{ fontFamily: inter, fontSize: 12, color: "#686868" }}>{block.eventType.label}</span>
           <span style={{ fontFamily: mono, fontSize: 9, color: "#1a1a1a" }}>via</span>
-          <span style={{ fontFamily: inter, fontSize: 12, color: block.agent.color }}>{block.agent.name}</span>
+          <span style={{ fontFamily: inter, fontSize: 12, color: "#f5f5f5" }}>{block.agent.name}</span>
         </div>
         <HashChip hash={block.hash} />
       </div>
@@ -192,11 +192,11 @@ function BlockDetail({ block, onClose }) {
                 <div style={{ fontFamily: mono, fontSize: 10, color: "#2a2a2a", wordBreak: "break-all", lineHeight: 1.5 }}>{block.prevHash === GENESIS_HASH ? "0".repeat(64) : block.prevHash}</div>
               </div>
               <div style={{ display: "flex", justifyContent: "center", padding: "4px 0" }}>
-                <span style={{ fontFamily: mono, fontSize: 10, color: block.agent.color }}>↓ SHA-256</span>
+                <span style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5" }}>↓ SHA-256</span>
               </div>
               <div style={{ background: "#080808", border: `1px solid ${block.agent.color}33`, padding: "10px 12px" }}>
-                <div style={{ fontFamily: mono, fontSize: 8, color: block.agent.color + "99", marginBottom: 5 }}>CURRENT HASH</div>
-                <div style={{ fontFamily: mono, fontSize: 10, color: block.agent.color + "cc", wordBreak: "break-all", lineHeight: 1.5 }}>{block.hash}</div>
+                <div style={{ fontFamily: mono, fontSize: 8, color: "#f5f5f5", marginBottom: 5 }}>CURRENT HASH</div>
+                <div style={{ fontFamily: mono, fontSize: 10, color: "#c0c0c0", wordBreak: "break-all", lineHeight: 1.5 }}>{block.hash}</div>
               </div>
             </div>
           </div>
@@ -226,7 +226,7 @@ function BlockDetail({ block, onClose }) {
         </div>
 
         <div style={{ padding: "14px 20px", borderTop: "1px solid #0a0a0a", flexShrink: 0 }}>
-          <button onClick={copy} style={{ width: "100%", fontFamily: mono, fontSize: 9, color: copied ? "#00D4FF" : "#333", background: "none", border: `1px solid ${copied ? "#00D4FF33" : "#111"}`, padding: "9px 0", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 0.2s" }}>
+          <button onClick={copy} style={{ width: "100%", fontFamily: mono, fontSize: 9, color: copied ? "#f5f5f5" : "#333", background: "none", border: `1px solid ${copied ? "#00D4FF33" : "#111"}`, padding: "9px 0", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 0.2s" }}>
             {copied ? "✓ JSON copied" : "Copy JSON"}
           </button>
         </div>
@@ -247,7 +247,7 @@ function SoulChainView({ agentId }) {
       <div style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "20px 0 24px", borderBottom: "1px solid #0a0a0a", marginBottom: 24 }}>
         <div style={{ width: 4, height: 52, background: agent.color, flexShrink: 0 }} />
         <div>
-          <div style={{ fontFamily: mono, fontSize: 9, color: agent.color, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 6 }}>Soul Chain · {agent.id}</div>
+          <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 6 }}>Soul Chain · {agent.id}</div>
           <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 22, color: "#e0e0e0", letterSpacing: "-0.03em", marginBottom: 4 }}>{agent.name}</div>
           <div style={{ fontFamily: inter, fontSize: 13, color: "#2a2a2a" }}>{agent.role}</div>
         </div>
@@ -259,7 +259,7 @@ function SoulChainView({ agentId }) {
 
       {/* Genesis block */}
       <div style={{ background: "#080808", border: "1px solid #FF6B2B22", padding: "14px 16px", marginBottom: 16 }}>
-        <div style={{ fontFamily: mono, fontSize: 9, color: "#FF6B2B", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>⬡ Genesis Hash · Trivial Zero seeded</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: "#FF6B2B", flexShrink: 0 }} />⬡ Genesis Hash · Trivial Zero seeded</div>
         <div style={{ fontFamily: mono, fontSize: 10, color: "#333", wordBreak: "break-all", lineHeight: 1.6 }}>{genesisHash}</div>
         <div style={{ fontFamily: inter, fontSize: 11, color: "#1a1a1a", marginTop: 6 }}>SHA-256({agent.id} + {agent.born} + BlackRoad-OS-v1.0)</div>
       </div>
@@ -308,7 +308,7 @@ function StatPill({ label, value, color }) {
   return (
     <div style={{ background: "#080808", border: "1px solid #0a0a0a", padding: "12px 16px", flex: "1 1 110px" }}>
       <div style={{ fontFamily: mono, fontSize: 9, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 20, color: color || "#484848", letterSpacing: "-0.02em" }}>{value}</div>
+      <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 20, color: "#f5f5f5", letterSpacing: "-0.02em" }}>{value}</div>
     </div>
   );
 }
@@ -396,7 +396,7 @@ export default function RoadChainExplorer() {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <LiveTicker blocks={ALL_BLOCKS.slice(0, 8)} />
               <button onClick={() => setLive(l => !l)}
-                style={{ display: "flex", alignItems: "center", gap: 5, fontFamily: mono, fontSize: 9, color: live ? "#00D4FF" : "#2a2a2a", background: "none", border: `1px solid ${live ? "#00D4FF33" : "#0d0d0d"}`, padding: "5px 10px", cursor: "pointer", transition: "all 0.2s" }}>
+                style={{ display: "flex", alignItems: "center", gap: 5, fontFamily: mono, fontSize: 9, color: live ? "#f5f5f5" : "#2a2a2a", background: "none", border: `1px solid ${live ? "#00D4FF33" : "#0d0d0d"}`, padding: "5px 10px", cursor: "pointer", transition: "all 0.2s" }}>
                 <div style={{ width: 4, height: 4, borderRadius: "50%", background: live ? "#00D4FF" : "#1a1a1a", animation: live ? "pulse 1s infinite" : "none" }} />
                 {live ? "LIVE" : "PAUSED"}
               </button>
@@ -455,7 +455,7 @@ export default function RoadChainExplorer() {
               {/* Search + filter */}
               <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
                 <div style={{ flex: "1 1 240px" }}><SearchBar value={search} onChange={v => setSearch(v)} /></div>
-                {search && <button onClick={() => setSearch("")} style={{ fontFamily: mono, fontSize: 9, color: "#FF2255", background: "none", border: "1px solid #FF225522", padding: "0 14px", cursor: "pointer" }}>Clear</button>}
+                {search && <button onClick={() => setSearch("")} style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: "1px solid #FF225522", padding: "0 14px", cursor: "pointer" }}>Clear</button>}
               </div>
 
               {/* Table header */}

@@ -114,7 +114,7 @@ function CmdRow({ cmd, active, onHover, onClick, recent, pinned }) {
 
       {/* Badges */}
       <div style={{ display: "flex", gap: 4, alignItems: "center", flexShrink: 0 }}>
-        {pinned  && <span style={{ fontFamily: mono, fontSize: 8, color: "#8844FF44", border: "1px solid #8844FF22", padding: "1px 5px" }}>pinned</span>}
+        {pinned  && <span style={{ fontFamily: mono, fontSize: 8, color: "#f5f5f5", border: "1px solid #8844FF22", padding: "1px 5px" }}>pinned</span>}
         {recent  && !pinned && <span style={{ fontFamily: mono, fontSize: 8, color: "#1e1e1e", border: "1px solid #111", padding: "1px 5px" }}>recent</span>}
         {cmd.keys.length > 0 && (
           <div style={{ display: "flex", gap: 3 }}>

@@ -211,8 +211,9 @@ function MetricCard({ m, delay }) {
           {m.value}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <span style={{ fontFamily: mono, fontSize: 11, color: m.up ? "#00D4FF" : "#FF2255" }}>
-            {m.up ? "↑" : "↓"} {m.delta}
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: m.up ? "#00D4FF" : "#FF2255", flexShrink: 0 }} />
+            <span style={{ fontFamily: mono, fontSize: 11, color: "#f5f5f5" }}>{m.up ? "↑" : "↓"} {m.delta}</span>
           </span>
           <span style={{ fontFamily: inter, fontSize: 11, color: "#404040" }}>{m.sub}</span>
         </div>
@@ -243,7 +244,10 @@ function AgentRow({ a, delay, i }) {
           <div style={{ height: "100%", width: `${pct}%`, background: a.color, borderRadius: 2, transition: "width 1s ease", animation: `barGrow 1s ease ${delay}ms both` }} />
         </div>
         <div style={{ fontFamily: mono, fontSize: 11, color: "#555", width: 50, textAlign: "right", flexShrink: 0 }}>{a.calls.toLocaleString()}</div>
-        <div style={{ fontFamily: mono, fontSize: 11, color: a.success > 96 ? "#00D4FF" : "#FF6B2B", width: 42, textAlign: "right", flexShrink: 0 }}>{a.success}%</div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 4, width: 50, flexShrink: 0 }}>
+          <div style={{ width: 4, height: 4, borderRadius: "50%", background: a.success > 96 ? "#00D4FF" : "#FF6B2B" }} />
+          <span style={{ fontFamily: mono, fontSize: 11, color: "#f5f5f5" }}>{a.success}%</span>
+        </div>
       </div>
     </FadeIn>
   );
@@ -255,7 +259,7 @@ function EventRow({ e, delay }) {
   return (
     <FadeIn delay={delay}>
       <div style={{ display: "flex", gap: 12, padding: "10px 0", borderBottom: "1px solid #0d0d0d", alignItems: "flex-start" }}>
-        <div style={{ fontFamily: mono, fontSize: 12, color: e.color, flexShrink: 0, marginTop: 1 }}>{icons[e.type] || "·"}</div>
+        <div style={{ fontFamily: mono, fontSize: 12, flexShrink: 0, marginTop: 1 }}><span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: e.color, marginRight: 4, verticalAlign: "middle" }} /></div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: inter, fontSize: 12, color: "#c0c0c0", lineHeight: 1.4 }}>{e.msg}</div>
         </div>
@@ -291,7 +295,7 @@ function Overview() {
         <Card style={{ padding: 0 }}>
           <div style={{ padding: "18px 20px 10px" }}>
             <Label>Revenue · 12-Month</Label>
-            <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 26, color: "#f0f0f0", letterSpacing: "-0.03em" }}>$161.2K <span style={{ fontFamily: mono, fontSize: 12, color: "#00D4FF", fontWeight: 400 }}>↑ 23.1%</span></div>
+            <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 26, color: "#f0f0f0", letterSpacing: "-0.03em" }}>$161.2K <span style={{ display: "inline-flex", alignItems: "center", gap: 4, verticalAlign: "middle" }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", display: "inline-block" }} /><span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5", fontWeight: 400 }}>↑ 23.1%</span></span></div>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <AreaChart data={revenueData} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
@@ -318,7 +322,7 @@ function Overview() {
           <Card style={{ padding: 0 }}>
             <div style={{ padding: "18px 20px 10px" }}>
               <Label>API Requests · Today</Label>
-              <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 22, color: "#f0f0f0", letterSpacing: "-0.03em" }}>12,847 <span style={{ fontFamily: mono, fontSize: 11, color: "#8844FF", fontWeight: 400 }}>↑ 18.4%</span></div>
+              <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 22, color: "#f0f0f0", letterSpacing: "-0.03em" }}>12,847 <span style={{ display: "inline-flex", alignItems: "center", gap: 4, verticalAlign: "middle" }}><span style={{ width: 5, height: 5, borderRadius: "50%", background: "#8844FF", display: "inline-block" }} /><span style={{ fontFamily: mono, fontSize: 11, color: "#f5f5f5", fontWeight: 400 }}>↑ 18.4%</span></span></div>
             </div>
             <ResponsiveContainer width="100%" height={140}>
               <BarChart data={requestData} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>

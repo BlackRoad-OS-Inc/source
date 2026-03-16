@@ -972,6 +972,291 @@ async function handleUpgrade(request, db, env) {
   return err('Cannot upgrade — no active Stripe subscription', 400);
 }
 
+// ─── Landing Page ────────────────────────────────────────────────────────
+function handleLandingPage() {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoadPay — Pricing &amp; Plans | BlackRoad OS</title>
+  <link rel="icon" type="image/x-icon" href="https://images.blackroad.io/brand/favicon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://images.blackroad.io/brand/br-square-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.blackroad.io/brand/apple-touch-icon.png" />
+  <meta property="og:image" content="https://images.blackroad.io/brand/blackroad-icon-512.png" />
+  <meta property="og:title" content="RoadPay — Pricing &amp; Plans" />
+  <meta property="og:description" content="Choose your plan. AI agents, fleet tools, and full API access — starting free." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="description" content="RoadPay pricing plans and add-ons. AI agents, fleet management, and full API access — starting free." />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g: linear-gradient(90deg,#FF6B2B,#FF2255,#CC00AA,#8844FF,#4488FF,#00D4FF);
+      --g135: linear-gradient(135deg,#FF6B2B,#FF2255,#CC00AA,#8844FF,#4488FF,#00D4FF);
+      --bg: #000; --card: #0a0a0a; --elevated: #111; --hover: #181818;
+      --border: #1a1a1a; --muted: #444; --sub: #737373; --text: #f5f5f5; --white: #fff;
+      --sg: 'Space Grotesk', sans-serif; --jb: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sg); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:#000; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#FF6B2B,#FF2255,#8844FF,#00D4FF); border-radius:3px; }
+    .gradient-text { background: var(--g); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .gradient-border { border:1px solid transparent; background-origin:border-box; background-clip:padding-box,border-box; background-image:linear-gradient(#0a0a0a,#0a0a0a), var(--g); }
+    .gradient-line { height:1px; background: linear-gradient(90deg,transparent,#FF2255,#8844FF,#00D4FF,transparent); }
+
+    /* Nav */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:16px 40px; display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:var(--jb); font-size:14px; letter-spacing:2px; text-transform:uppercase; opacity:.6; }
+    .nav-links { display:flex; gap:24px; }
+    .nav-links a { color:rgba(255,255,255,.5); text-decoration:none; font-size:14px; transition:color .3s; }
+    .nav-links a:hover { color:#fff; }
+
+    /* Hero */
+    .hero { padding:160px 40px 80px; text-align:center; max-width:900px; margin:0 auto; }
+    .hero h1 { font-size:clamp(48px,8vw,88px); font-weight:700; letter-spacing:-2px; line-height:1; }
+    .hero p { font-size:clamp(16px,2vw,20px); opacity:.5; margin-top:20px; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.6; }
+    .badge { display:inline-block; font-family:var(--jb); font-size:12px; letter-spacing:3px; text-transform:uppercase; opacity:.35; margin-bottom:16px; }
+
+    /* Pricing Section */
+    .section { padding:80px 40px; max-width:1200px; margin:0 auto; }
+    .section-label { font-family:var(--jb); font-size:12px; letter-spacing:4px; text-transform:uppercase; opacity:.35; margin-bottom:12px; }
+    .section-title { font-size:clamp(32px,4vw,52px); font-weight:700; line-height:1.1; margin-bottom:16px; }
+    .section-sub { font-size:16px; opacity:.45; max-width:560px; line-height:1.6; margin-bottom:48px; }
+
+    /* Plan Cards */
+    .plans-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    @media(max-width:1024px) { .plans-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:600px) { .plans-grid { grid-template-columns:1fr; } }
+
+    .plan-card { padding:32px 28px; border-radius:16px; position:relative; transition:transform .3s, box-shadow .3s; display:flex; flex-direction:column; }
+    .plan-card:hover { transform:translateY(-6px); }
+    .plan-card.featured { box-shadow:0 0 80px rgba(255,34,85,.08); }
+    .plan-card.featured::before { content:'Most Popular'; position:absolute; top:-12px; left:50%; transform:translateX(-50%); font-family:var(--jb); font-size:11px; letter-spacing:2px; text-transform:uppercase; background:var(--g); color:#000; padding:4px 16px; border-radius:20px; font-weight:700; }
+    .plan-name { font-size:20px; font-weight:700; margin-bottom:4px; }
+    .plan-desc { font-size:13px; opacity:.4; margin-bottom:20px; min-height:36px; }
+    .plan-price { font-size:48px; font-weight:700; letter-spacing:-2px; }
+    .plan-price span { font-size:16px; opacity:.4; font-weight:400; letter-spacing:0; }
+    .plan-period { font-family:var(--jb); font-size:12px; opacity:.3; margin-bottom:24px; }
+    .plan-features { list-style:none; flex:1; margin-bottom:24px; }
+    .plan-features li { padding:8px 0; font-size:14px; opacity:.55; border-bottom:1px solid rgba(255,255,255,.04); display:flex; align-items:center; gap:8px; }
+    .plan-features li::before { content:'\\2713'; color:#00D4FF; font-size:12px; flex-shrink:0; }
+    .plan-cta { display:block; text-align:center; padding:14px 24px; border-radius:12px; color:#fff; text-decoration:none; font-weight:600; font-size:14px; transition:all .3s; border:1px solid rgba(255,255,255,.15); }
+    .plan-cta:hover { border-color:#FF2255; background:rgba(255,34,85,.1); transform:translateY(-1px); }
+    .plan-cta.primary { background:var(--g); border:none; color:#000; font-weight:700; }
+    .plan-cta.primary:hover { opacity:.9; }
+
+    /* Add-ons */
+    .addons-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+    .addon-card { padding:24px; border-radius:14px; display:flex; flex-direction:column; gap:8px; transition:transform .3s; }
+    .addon-card:hover { transform:translateY(-3px); }
+    .addon-header { display:flex; justify-content:space-between; align-items:center; }
+    .addon-name { font-weight:700; font-size:16px; }
+    .addon-price { font-family:var(--jb); font-size:14px; opacity:.5; }
+    .addon-desc { font-size:13px; opacity:.4; line-height:1.5; }
+
+    /* FAQ */
+    .faq-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
+    .faq-item { padding:28px; border-radius:14px; }
+    .faq-q { font-weight:700; font-size:16px; margin-bottom:8px; }
+    .faq-a { font-size:14px; opacity:.45; line-height:1.7; }
+
+    /* Footer */
+    .footer { border-top:1px solid var(--border); padding:60px 40px; text-align:center; margin-top:80px; }
+    .footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-bottom:24px; }
+    .footer-links a { color:rgba(255,255,255,.4); text-decoration:none; font-size:14px; transition:color .3s; }
+    .footer-links a:hover { color:#fff; }
+
+    /* Animations */
+    .fade-up { opacity:0; transform:translateY(30px); transition:opacity .7s ease, transform .7s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+    @media(max-width:768px) { .section { padding:60px 20px; } nav { padding:14px 20px; } .hero { padding:120px 20px 60px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">RoadPay</div>
+  <div class="nav-links">
+    <a href="https://blackroad.io">Home</a>
+    <a href="#plans">Plans</a>
+    <a href="#addons">Add-ons</a>
+    <a href="#faq">FAQ</a>
+    <a href="/health">API</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">Billing by BlackRoad</div>
+  <h1 class="gradient-text">Choose your road.</h1>
+  <p>AI agents, fleet management, and full API access. Start free, scale when you need to. Your data stays yours.</p>
+</section>
+<div class="gradient-line"></div>
+
+<section class="section" id="plans">
+  <div class="fade-up">
+    <p class="section-label">Plans</p>
+    <h2 class="section-title">Simple pricing. No surprises.</h2>
+    <p class="section-sub">Every plan includes access to BlackRoad's AI agent platform. Upgrade or downgrade anytime.</p>
+  </div>
+  <div class="plans-grid fade-up" id="plans-grid">
+    <div class="plan-card gradient-border">
+      <div class="plan-name">Operator</div>
+      <div class="plan-desc">Get started with AI agents at no cost.</div>
+      <div class="plan-price">$0</div>
+      <div class="plan-period">free forever</div>
+      <ul class="plan-features">
+        <li>1 AI agent</li>
+        <li>Community support</li>
+        <li>Basic RoadSearch</li>
+        <li>Public dashboard</li>
+      </ul>
+      <a href="/subscribe?plan=operator" class="plan-cta">Get Started</a>
+    </div>
+    <div class="plan-card gradient-border featured">
+      <div class="plan-name">Rider</div>
+      <div class="plan-desc">For builders who need more power.</div>
+      <div class="plan-price">$29<span>/mo</span></div>
+      <div class="plan-period">billed monthly</div>
+      <ul class="plan-features">
+        <li>5 AI agents</li>
+        <li>Priority support</li>
+        <li>Full API access</li>
+        <li>RoadSearch Pro</li>
+        <li>Custom dashboards</li>
+        <li>Webhook integrations</li>
+      </ul>
+      <a href="/subscribe?plan=rider" class="plan-cta primary">Subscribe</a>
+    </div>
+    <div class="plan-card gradient-border">
+      <div class="plan-name">Paver</div>
+      <div class="plan-desc">For teams that build together.</div>
+      <div class="plan-price">$99<span>/mo</span></div>
+      <div class="plan-period">billed monthly</div>
+      <ul class="plan-features">
+        <li>25 AI agents</li>
+        <li>Dedicated support</li>
+        <li>Fleet management</li>
+        <li>Team workspaces</li>
+        <li>Advanced analytics</li>
+        <li>Priority inference</li>
+        <li>Custom models</li>
+      </ul>
+      <a href="/subscribe?plan=paver" class="plan-cta">Subscribe</a>
+    </div>
+    <div class="plan-card gradient-border">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-desc">Tailored to your organization.</div>
+      <div class="plan-price">Custom</div>
+      <div class="plan-period">per agreement</div>
+      <ul class="plan-features">
+        <li>Unlimited agents</li>
+        <li>Dedicated infrastructure</li>
+        <li>Custom SLAs</li>
+        <li>White-label option</li>
+        <li>Private deployment</li>
+        <li>Direct engineering support</li>
+        <li>Custom integrations</li>
+      </ul>
+      <a href="mailto:alexa@blackroad.io?subject=Enterprise%20Plan" class="plan-cta">Contact Us</a>
+    </div>
+  </div>
+</section>
+<div class="gradient-line"></div>
+
+<section class="section" id="addons">
+  <div class="fade-up">
+    <p class="section-label">Add-ons</p>
+    <h2 class="section-title">Extend your plan.</h2>
+    <p class="section-sub">Stack capabilities on top of any paid plan. Each add-on is billed monthly.</p>
+  </div>
+  <div class="addons-grid fade-up">
+    <div class="addon-card gradient-border">
+      <div class="addon-header"><span class="addon-name">Lucidia Enhanced</span><span class="addon-price">$9.99/mo</span></div>
+      <div class="addon-desc">Advanced AI companion with memory, personality, and continuous learning.</div>
+    </div>
+    <div class="addon-card gradient-border">
+      <div class="addon-header"><span class="addon-name">RoadAuth</span><span class="addon-price">$4.99/mo</span></div>
+      <div class="addon-desc">Identity and authentication for your apps. Your data stays yours.</div>
+    </div>
+    <div class="addon-card gradient-border">
+      <div class="addon-header"><span class="addon-name">Context Bridge</span><span class="addon-price">$7.99/mo</span></div>
+      <div class="addon-desc">Cross-agent memory sharing and context that persists between sessions.</div>
+    </div>
+    <div class="addon-card gradient-border">
+      <div class="addon-header"><span class="addon-name">Knowledge Hub</span><span class="addon-price">$14.99/mo</span></div>
+      <div class="addon-desc">RAG pipeline with vector search across all your data. Answers grounded in your content.</div>
+    </div>
+  </div>
+</section>
+<div class="gradient-line"></div>
+
+<section class="section" id="faq">
+  <div class="fade-up">
+    <p class="section-label">FAQ</p>
+    <h2 class="section-title">Common questions.</h2>
+  </div>
+  <div class="faq-grid fade-up">
+    <div class="faq-item gradient-border">
+      <div class="faq-q">How does billing work?</div>
+      <div class="faq-a">All plans are billed monthly. You can upgrade, downgrade, or cancel anytime from your dashboard. Upgrades are prorated automatically.</div>
+    </div>
+    <div class="faq-item gradient-border">
+      <div class="faq-q">What payment methods do you accept?</div>
+      <div class="faq-a">We accept all major credit and debit cards through our secure payment processor. No cryptocurrency at this time.</div>
+    </div>
+    <div class="faq-item gradient-border">
+      <div class="faq-q">Can I try before I buy?</div>
+      <div class="faq-a">The Operator plan is free forever. Use it as long as you like. When you need more agents or features, upgrade in one click.</div>
+    </div>
+    <div class="faq-item gradient-border">
+      <div class="faq-q">Where does my data live?</div>
+      <div class="faq-a">Your data stays yours, always. It runs on your device or on edge infrastructure close to you. We never sell or share your data.</div>
+    </div>
+    <div class="faq-item gradient-border">
+      <div class="faq-q">What happens if I cancel?</div>
+      <div class="faq-a">Your account downgrades to the free Operator plan at the end of your billing period. No data is deleted. You can re-subscribe anytime.</div>
+    </div>
+    <div class="faq-item gradient-border">
+      <div class="faq-q">Do add-ons require a paid plan?</div>
+      <div class="faq-a">Add-ons are available on the Rider plan and above. They stack on top of your base plan and are billed separately each month.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://blackroad.io">Home</a>
+    <a href="https://lucidia.earth">Lucidia</a>
+    <a href="https://blackroadai.com">AI</a>
+    <a href="https://blackroad.network">Network</a>
+    <a href="https://blackroad.systems">Cloud</a>
+    <a href="https://status.blackroad.io">Status</a>
+    <a href="https://blackroad.company">Company</a>
+    <a href="https://search.blackroad.io">Search</a>
+    <a href="https://github.com/blackboxprogramming">GitHub</a>
+  </div>
+  <p style="color:rgba(255,255,255,.3);font-size:14px">BlackRoad OS &mdash; Pave Tomorrow.</p>
+  <p style="color:rgba(255,255,255,.15);font-size:12px;margin-top:8px">&copy; 2025&ndash;2026 BlackRoad OS, Inc. All rights reserved.</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>`;
+
+  return new Response(html, {
+    status: 200,
+    headers: { 'Content-Type': 'text/html;charset=utf-8' },
+  });
+}
+
 // ─── Health ──────────────────────────────────────────────────────────────
 function handleHealth() {
   return json({
@@ -980,6 +1265,8 @@ function handleHealth() {
     version: VERSION,
     time: new Date().toISOString(),
     endpoints: [
+      'GET  / (landing page or health)',
+      'GET  /pricing',
       'GET  /health',
       'GET  /init',
       'GET  /plans',
@@ -1151,7 +1438,16 @@ export default {
     try {
       const path = url.pathname;
 
+      // Landing page — serve HTML for browsers
+      if ((path === '/' || path === '/pricing') && request.method === 'GET') {
+        const accept = request.headers.get('Accept') || '';
+        if (accept.includes('text/html')) {
+          return addHeaders(handleLandingPage(), cors);
+        }
+      }
+
       // Public endpoints (no auth)
+      if (path === '/' && request.method === 'GET') return addHeaders(handleHealth(), cors);
       if (path === '/health') return addHeaders(handleHealth(), cors);
       if (path === '/init') return addHeaders(await handleInit(db), cors);
       if (path === '/plans') return addHeaders(await handlePlans(db), cors);

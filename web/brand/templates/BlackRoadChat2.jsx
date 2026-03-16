@@ -403,7 +403,7 @@ export default function BlackRoadChat() {
                   Talk to Lucidia
                 </h1>
                 <p style={{ fontFamily: inter, fontSize: 14, color: "#484848", lineHeight: 1.7, maxWidth: 360, marginBottom: 8 }}>
-                  Cognitive core of BlackRoad OS. Running on <span style={{ fontFamily: mono, fontSize: 12, color: "#8844FF" }}>{model}</span> via Ollama.
+                  Cognitive core of BlackRoad OS. Running on <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>{model}</span> via Ollama.
                 </p>
                 <p style={{ fontFamily: inter, fontSize: 12, color: "#2a2a2a", marginBottom: 36 }}>
                   Make sure Ollama is running on localhost:11434
@@ -424,7 +424,7 @@ export default function BlackRoadChat() {
             {/* Error */}
             {error && (
               <div style={{ display: "flex", gap: 10, padding: "12px 14px", background: "#FF225509", border: "1px solid #FF225522", margin: "8px 0 16px" }}>
-                <span style={{ fontFamily: mono, fontSize: 11, color: "#FF2255", flexShrink: 0 }}>✕</span>
+                <span style={{ fontFamily: mono, fontSize: 11, color: "#f5f5f5", flexShrink: 0 }}>✕</span>
                 <span style={{ fontFamily: inter, fontSize: 13, color: "#666", lineHeight: 1.5 }}>{error}</span>
               </div>
             )}

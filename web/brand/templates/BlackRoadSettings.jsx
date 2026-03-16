@@ -123,7 +123,7 @@ function SaveBar({ dirty, onSave, onDiscard, saving }) {
         onMouseEnter={e => e.currentTarget.style.color = "#888"}
         onMouseLeave={e => e.currentTarget.style.color = "#333"}
       >Discard</button>
-      <button onClick={onSave} style={{ fontFamily: mono, fontSize: 9, color: "#f0f0f0", background: saving ? "#111" : "#4488FF", border: "none", padding: "7px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.15s" }}>
+      <button onClick={onSave} style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "transparent", border: "1px solid #4488FF", padding: "7px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.15s" }}>
         {saving ? "Saving…" : "Save changes"}
       </button>
     </div>
@@ -202,7 +202,7 @@ function ProfileSection() {
       </div>
 
       {saved && (
-        <div style={{ fontFamily: mono, fontSize: 10, color: "#00D4FF", marginTop: -8, marginBottom: 12 }}>✓ Changes saved</div>
+        <div style={{ fontFamily: mono, fontSize: 10, color: "#f5f5f5", marginTop: -8, marginBottom: 12 }}>✓ Changes saved</div>
       )}
 
       <SaveBar dirty={dirty} onSave={save} onDiscard={() => { setDirty(false); }} saving={saving} />
@@ -233,7 +233,7 @@ function ApiKeysSection() {
       {/* New key reveal */}
       {newKey && (
         <div style={{ background: "#00D4FF08", border: "1px solid #00D4FF22", padding: "16px 18px", marginBottom: 20 }}>
-          <div style={{ fontFamily: mono, fontSize: 9, color: "#00D4FF", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>New key created — copy it now, it won't be shown again</div>
+          <div style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>New key created — copy it now, it won't be shown again</div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
             <code style={{ fontFamily: mono, fontSize: 12, color: "#909090", flex: 1, wordBreak: "break-all" }}>{newKey.full}</code>
             <CopyBtn val={newKey.full} />
@@ -253,13 +253,13 @@ function ApiKeysSection() {
               placeholder="e.g. Production"
               style={{ flex: 1, background: "#050505", border: "1px solid #1a1a1a", outline: "none", padding: "9px 12px", fontFamily: inter, fontSize: 13, color: "#c0c0c0" }}
             />
-            <button onClick={createKey} style={{ fontFamily: mono, fontSize: 9, color: "#f0f0f0", background: "#4488FF", border: "none", padding: "9px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em" }}>Create</button>
+            <button onClick={createKey} style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "transparent", border: "1px solid #4488FF", padding: "9px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em" }}>Create</button>
             <button onClick={() => setCreate(false)} style={{ fontFamily: mono, fontSize: 9, color: "#444", background: "none", border: "1px solid #1a1a1a", padding: "9px 14px", cursor: "pointer" }}>Cancel</button>
           </div>
         </div>
       ) : (
         <button onClick={() => setCreate(true)}
-          style={{ fontFamily: mono, fontSize: 9, color: "#4488FF", background: "none", border: "1px solid #4488FF33", padding: "9px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 20, transition: "background 0.15s" }}
+          style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: "1px solid #4488FF33", padding: "9px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 20, transition: "background 0.15s" }}
           onMouseEnter={e => e.currentTarget.style.background = "#4488FF0d"}
           onMouseLeave={e => e.currentTarget.style.background = "none"}
         >+ New API key</button>
@@ -282,7 +282,7 @@ function ApiKeysSection() {
             </p>
             <div style={{ display: "flex", gap: 10 }}>
               <button onClick={() => { setKeys(prev => prev.filter(k => k.id !== revoke)); setRevoke(null); }}
-                style={{ fontFamily: mono, fontSize: 9, color: "#f0f0f0", background: "#FF2255", border: "none", padding: "9px 18px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em" }}>Revoke</button>
+                style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "transparent", border: "1px solid #FF2255", padding: "9px 18px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em" }}>Revoke</button>
               <button onClick={() => setRevoke(null)}
                 style={{ fontFamily: mono, fontSize: 9, color: "#444", background: "none", border: "1px solid #1a1a1a", padding: "9px 14px", cursor: "pointer" }}>Cancel</button>
             </div>
@@ -313,7 +313,7 @@ function KeyRow({ k, onRevoke }) {
             onMouseLeave={e => e.currentTarget.style.color = "#333"}
           >{show ? "Hide" : "Show"}</button>
           <CopyBtn val={k.prefix + "xxxxxxxxxxxx"} />
-          <button onClick={onRevoke} style={{ fontFamily: mono, fontSize: 9, color: "#FF2255", background: "none", border: "1px solid #FF225522", padding: "5px 10px", cursor: "pointer", transition: "background 0.15s" }}
+          <button onClick={onRevoke} style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: "1px solid #FF225522", padding: "5px 10px", cursor: "pointer", transition: "background 0.15s" }}
             onMouseEnter={e => e.currentTarget.style.background = "#FF22550d"}
             onMouseLeave={e => e.currentTarget.style.background = "none"}
           >Revoke</button>
@@ -322,7 +322,7 @@ function KeyRow({ k, onRevoke }) {
       {/* Scopes */}
       <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap" }}>
         {k.scopes.map(s => (
-          <span key={s} style={{ fontFamily: mono, fontSize: 9, color: "#8844FF", background: "#8844FF12", border: "1px solid #8844FF22", padding: "2px 8px", letterSpacing: "0.04em" }}>{s}</span>
+          <span key={s} style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "#8844FF12", borderLeft: "2px solid #8844FF", padding: "2px 8px", letterSpacing: "0.04em" }}>{s}</span>
         ))}
       </div>
     </div>
@@ -332,7 +332,7 @@ function KeyRow({ k, onRevoke }) {
 function CopyBtn({ val }) {
   const [copied, copy] = useCopy(val);
   return (
-    <button onClick={copy} style={{ fontFamily: mono, fontSize: 9, color: copied ? "#00D4FF" : "#333", background: "none", border: "1px solid #1a1a1a", padding: "5px 10px", cursor: "pointer", transition: "color 0.15s" }}>
+    <button onClick={copy} style={{ fontFamily: mono, fontSize: 9, color: copied ? "#f5f5f5" : "#333", background: "none", border: `1px solid ${copied ? "#00D4FF" : "#1a1a1a"}`, padding: "5px 10px", cursor: "pointer", transition: "color 0.15s" }}>
       {copied ? "✓" : "Copy"}
     </button>
   );
@@ -378,8 +378,8 @@ function SecuritySection() {
                 <div style={{ fontFamily: mono, fontSize: 10, color: "#2a2a2a" }}>{s.location} · {s.time}</div>
               </div>
               {s.current
-                ? <span style={{ fontFamily: mono, fontSize: 9, color: "#00D4FF44" }}>this session</span>
-                : <button style={{ fontFamily: mono, fontSize: 9, color: "#FF2255", background: "none", border: "1px solid #FF225522", padding: "4px 10px", cursor: "pointer" }}>Revoke</button>
+                ? <span style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f544" }}>this session</span>
+                : <button style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: "1px solid #FF225522", padding: "4px 10px", cursor: "pointer" }}>Revoke</button>
               }
             </div>
           ))}
@@ -428,7 +428,7 @@ function AgentsSection() {
               <span style={{ fontFamily: mono, fontSize: 10, color: "#2a2a2a" }}>{a.model}</span>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <div style={{ width: 6, height: 6, borderRadius: "50%", background: statusColor }} />
-                <span style={{ fontFamily: mono, fontSize: 9, color: statusColor }}>{a.status}</span>
+                <span style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5" }}>{a.status}</span>
               </div>
               <button style={{ fontFamily: mono, fontSize: 9, color: "#333", background: "none", border: "1px solid #1a1a1a", padding: "5px 10px", cursor: "pointer", transition: "color 0.15s" }}
                 onMouseEnter={e => e.currentTarget.style.color = "#888"}
@@ -472,7 +472,7 @@ function DangerSection() {
               <div style={{ fontFamily: inter, fontSize: 12, color: "#2e2e2e" }}>{a.sub}</div>
             </div>
             <button onClick={() => setOpen(a.id)}
-              style={{ fontFamily: mono, fontSize: 9, color: a.color, background: "none", border: `1px solid ${a.color}33`, padding: "8px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.15s", flexShrink: 0 }}
+              style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "none", border: `1px solid ${a.color}33`, padding: "8px 16px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.15s", flexShrink: 0 }}
               onMouseEnter={e => e.currentTarget.style.background = a.color + "0d"}
               onMouseLeave={e => e.currentTarget.style.background = "none"}
             >{a.btn}</button>
@@ -485,14 +485,14 @@ function DangerSection() {
           <div style={{ background: "#080808", border: "1px solid #FF225522", padding: "28px", maxWidth: 400, width: "100%" }}>
             <div style={{ fontFamily: grotesk, fontWeight: 700, fontSize: 18, color: "#e0e0e0", marginBottom: 10 }}>Delete workspace?</div>
             <p style={{ fontFamily: inter, fontSize: 13, color: "#484848", lineHeight: 1.65, marginBottom: 20 }}>
-              This will permanently delete all your data, agents, API keys, and logs. Type <span style={{ fontFamily: mono, fontSize: 12, color: "#FF2255" }}>delete my workspace</span> to confirm.
+              This will permanently delete all your data, agents, API keys, and logs. Type <span style={{ fontFamily: mono, fontSize: 12, color: "#f5f5f5" }}>delete my workspace</span> to confirm.
             </p>
             <input value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="delete my workspace"
               style={{ width: "100%", background: "#050505", border: "1px solid #1a1a1a", outline: "none", padding: "10px 12px", fontFamily: mono, fontSize: 12, color: "#c0c0c0", marginBottom: 16 }}
             />
             <div style={{ display: "flex", gap: 10 }}>
               <button disabled={confirm !== "delete my workspace"}
-                style={{ fontFamily: mono, fontSize: 9, color: "#f0f0f0", background: confirm === "delete my workspace" ? "#FF2255" : "#1a1a1a", border: "none", padding: "9px 18px", cursor: confirm === "delete my workspace" ? "pointer" : "not-allowed", textTransform: "uppercase", letterSpacing: "0.08em", transition: "background 0.2s" }}
+                style={{ fontFamily: mono, fontSize: 9, color: "#f5f5f5", background: "transparent", border: `1px solid ${confirm === "delete my workspace" ? "#FF2255" : "#1a1a1a"}`, padding: "9px 18px", cursor: confirm === "delete my workspace" ? "pointer" : "not-allowed", textTransform: "uppercase", letterSpacing: "0.08em", transition: "border-color 0.2s" }}
               >Delete forever</button>
               <button onClick={() => { setOpen(null); setConfirm(""); }}
                 style={{ fontFamily: mono, fontSize: 9, color: "#444", background: "none", border: "1px solid #1a1a1a", padding: "9px 14px", cursor: "pointer" }}>Cancel</button>
@@ -646,8 +646,8 @@ function SidebarNav({ active, setActive }) {
             onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = "#080808"; }}
             onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = "none"; }}
           >
-            <span style={{ fontFamily: mono, fontSize: 11, color: isActive ? (item.danger ? "#FF2255" : "#4488FF") : "#242424", width: 14, flexShrink: 0 }}>{item.icon}</span>
-            <span style={{ fontFamily: inter, fontSize: 13, color: isActive ? (item.danger ? "#FF6666" : "#d0d0d0") : item.danger ? "#FF225544" : "#484848" }}>{item.label}</span>
+            <span style={{ fontFamily: mono, fontSize: 11, color: isActive ? "#f5f5f5" : "#242424", width: 14, flexShrink: 0 }}>{item.icon}</span>
+            <span style={{ fontFamily: inter, fontSize: 13, color: isActive ? "#d0d0d0" : item.danger ? "#48484844" : "#484848" }}>{item.label}</span>
           </button>
         );
       })}
