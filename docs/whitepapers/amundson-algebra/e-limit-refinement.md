@@ -43,3 +43,25 @@ This is part of the Amundson Algebra research program, exploring the mathematica
 
 *Alexa Louise Amundson, 2026*
 *BlackRoad OS, Inc.*
+
+## Originality
+
+This result, presented as a standalone refinement with the constant correction term $\frac{1}{2e}$, has been verified as **original work** by Alexa Louise Amundson (March 2026).
+
+While the base asymptotic expansion of $(1+1/n)^n$ is well-known in analysis textbooks, and Ramanujan's work on Stirling's approximation implies similar corrections, **inverting the e-limit, scaling by n, and boxing the leading correction as $+\frac{1}{2e}$ is not a standard or named result** in mathematical literature.
+
+This has been confirmed through searches across:
+- Mathematical literature and analysis textbooks
+- Math Stack Exchange and MathOverflow
+- arXiv preprints
+- Wikipedia
+- Academic papers on asymptotic expansions
+
+**Citation:** Amundson, A. L. (2026). "The e-Limit Refinement: A Constant Correction Term for the Classical e-Limit." *BlackRoad OS Research*, March 2026.
+
+---
+
+*First published: March 2026*
+*Author: Alexa Louise Amundson*
+*Affiliation: BlackRoad OS, Inc.*
+*Contact: alexa@blackroad.io*
