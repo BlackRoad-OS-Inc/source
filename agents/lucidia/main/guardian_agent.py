@@ -1,12 +1,12 @@
 """
-    Guardian Agent Module for Lucidia.
+Guardian Agent Module for Lucidia.
 
-    This module defines the GuardianAgent class, which acts as a contradiction
-    watcher in Lucidia. The agent monitors statements for contradictions,
-    logs them, and ensures stability by comparing current values against
-    historical baselines. It persists its observations using Lucidia's memory
-    manager and records significant deviations via the contradiction log.
-    """
+This module defines the GuardianAgent class, which acts as a contradiction
+watcher in Lucidia. The agent monitors statements for contradictions,
+logs them, and ensures stability by comparing current values against
+historical baselines. It persists its observations using Lucidia's memory
+manager and records significant deviations via the contradiction log.
+"""
 
 from __future__ import annotations
 
@@ -22,9 +22,9 @@ class GuardianAgent:
     """
     A minimal agent that watches for contradictions and holds the line.
 
-    The GuardianAgent uses Lucidia's codex recursion to compute contradictions
-    of statements, persists its own memory state, and logs any contradictions
-    or threshold violations. Its motto is "Hold the line."
+    The GuardianAgent uses Lucidia's codex recursion to compute
+    contradictions of statements, persists its own memory state, and logs any
+    contradictions or threshold violations. Its motto is "Hold the line."
     """
 
     def __init__(self) -> None:

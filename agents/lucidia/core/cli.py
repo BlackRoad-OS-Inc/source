@@ -1,90 +1,85 @@
-"""Lucidia CLI - Command-line interface for reasoning engines."""
-
+"""CLI entrypoint for the quantum engine."""
 from __future__ import annotations
 
 import argparse
-import sys
-from pathlib import Path
 
-# Add parent to path for agent imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+import torch
+
+from .backends import backend_names, backend_summaries
+from .policy import guard_env, set_seed
+from .models import PQCClassifier, QAOAModel, VQEModel
+from .device import Device
 
 
-def main():
-    """Main CLI entry point."""
-    parser = argparse.ArgumentParser(
-        prog="lucidia",
-        description="Lucidia: AI reasoning engines for specialized domains",
+def _run(args: argparse.Namespace) -> None:
+    if args.backend not in (None, "torchquantum"):
+        raise SystemExit(
+            "Only the TorchQuantum backend currently supports training flows; "
+            f"requested backend {args.backend!r}."
+        )
+    model_map = {
+        'vqe': VQEModel,
+        'qaoa': QAOAModel,
+        'qkernel': PQCClassifier,
+    }
+    model = model_map[args.example](n_wires=args.wires)
+    x = torch.zeros(args.shots, 1, device=args.device)
+    out = model(x)
+    print(out.mean().item())
+
+
+def _bench(args: argparse.Namespace) -> None:
+    print(f"running {args.suite} bench")
+
+
+def _qasm(args: argparse.Namespace) -> None:
+    dev = Device(n_wires=2, backend=args.backend)
+    with open(args.outfile, 'w', encoding='utf-8') as fh:
+        fh.write(dev.qasm())
+
+
+def main() -> None:
+    guard_env()
+    parser = argparse.ArgumentParser(prog='lucidia-quantum')
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument(
+        '--backend',
+        choices=backend_names(),
+        help='Quantum backend to use (default: auto-detect)',
     )
+    parser.add_argument(
+        '--list-backends',
+        action='store_true',
+        help='List detected quantum backends and exit',
+    )
+    sub = parser.add_subparsers(dest='cmd', required=True)
 
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+    runp = sub.add_parser('run')
+    runp.add_argument('--example', choices=['vqe', 'qaoa', 'qkernel'], required=True)
+    runp.add_argument('--wires', type=int, default=4)
+    runp.add_argument('--shots', type=int, default=1024)
+    runp.add_argument('--device', type=str, default='cpu')
 
-    # List agents
-    list_parser = subparsers.add_parser("list", help="List available agents")
+    benchp = sub.add_parser('bench')
+    benchp.add_argument('--suite', choices=['smoke', 'full'], default='smoke')
 
-    # Run agent
-    run_parser = subparsers.add_parser("run", help="Run a specific agent")
-    run_parser.add_argument("agent", help="Agent name (physicist, mathematician, etc.)")
-    run_parser.add_argument("--query", "-q", help="Query to process")
-    run_parser.add_argument("--seed", "-s", help="Path to seed YAML file")
-
-    # API server
-    api_parser = subparsers.add_parser("api", help="Start the API server")
-    api_parser.add_argument("--host", default="0.0.0.0", help="Host to bind")
-    api_parser.add_argument("--port", "-p", type=int, default=8000, help="Port to bind")
+    qasmp = sub.add_parser('qasm')
+    qasmp.add_argument('--in', dest='infile', required=True)
+    qasmp.add_argument('--out', dest='outfile', required=True)
 
     args = parser.parse_args()
-
-    if args.command == "list":
-        print("Available Lucidia agents:")
-        print()
-        agents = [
-            ("physicist", "Physics simulations, energy modeling, force calculations"),
-            ("mathematician", "Mathematical computations, proofs, symbolic math"),
-            ("chemist", "Chemical analysis, reactions, molecular structures"),
-            ("geologist", "Geological analysis, terrain modeling, stratigraphy"),
-            ("analyst", "Data analysis, pattern recognition, insights"),
-            ("architect", "System design, blueprints, architecture planning"),
-            ("engineer", "Engineering calculations, structural analysis"),
-            ("painter", "Visual generation, graphics, artistic rendering"),
-            ("poet", "Creative text, poetry, lyrical composition"),
-            ("speaker", "Speech synthesis, NLP, communication"),
-            ("navigator", "Pathfinding, navigation, route optimization"),
-            ("researcher", "Research synthesis, literature review"),
-            ("mediator", "Coordination, conflict resolution"),
-            ("builder", "Build systems, construction planning"),
-        ]
-        for name, desc in agents:
-            print(f"  {name:15} - {desc}")
-        print()
-
-    elif args.command == "run":
-        agent_name = args.agent.lower()
-        print(f"Loading {agent_name} agent...")
-
-        try:
-            if agent_name == "physicist":
-                from physicist import main as agent_main
-                agent_main()
-            elif agent_name == "mathematician":
-                from mathematician import main as agent_main
-                agent_main()
-            else:
-                print(f"Agent '{agent_name}' not yet implemented for CLI mode")
-                sys.exit(1)
-        except ImportError as e:
-            print(f"Error loading agent: {e}")
-            sys.exit(1)
-
-    elif args.command == "api":
-        print(f"Starting Lucidia API on {args.host}:{args.port}")
-        import uvicorn
-        from lucidia_core.api import app
-        uvicorn.run(app, host=args.host, port=args.port)
-
-    else:
-        parser.print_help()
+    if args.list_backends:
+        for summary in backend_summaries():
+            print(summary)
+        return
+    set_seed(args.seed)
+    if args.cmd == 'run':
+        _run(args)
+    elif args.cmd == 'bench':
+        _bench(args)
+    elif args.cmd == 'qasm':
+        _qasm(args)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':  # pragma: no cover
     main()

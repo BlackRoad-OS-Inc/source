@@ -296,6 +296,7 @@ class Parser:
         self.expect(TokenType.INDENT)
         then_block = self.parse_block()
         self.expect(TokenType.DEDENT)
+        self.skip_newlines()
 
         # Elif blocks
         elif_blocks = []
@@ -307,6 +308,7 @@ class Parser:
             self.expect(TokenType.INDENT)
             elif_block = self.parse_block()
             self.expect(TokenType.DEDENT)
+            self.skip_newlines()
             elif_blocks.append((elif_condition, elif_block))
 
         # Else block
