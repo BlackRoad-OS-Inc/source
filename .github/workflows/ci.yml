@@ -9,7 +9,7 @@ jobs:
   count:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
       - name: Source tree stats
         run: |
           echo "## Source Tree Stats" >> $GITHUB_STEP_SUMMARY
@@ -22,7 +22,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
       - name: Check structure
         run: |
           for dir in agents api apps brand cli config core data docs fleet infrastructure memory models nodes orchestrator runtime scripts services system tests users web; do
