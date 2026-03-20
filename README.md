@@ -105,7 +105,7 @@ BlackRoad-Source/
 ├── fleet/            # Pi fleet management
 │   ├── alice/        # Pi 400 — Gateway, DNS, PostgreSQL
 │   ├── cecilia/      # Pi 5 — AI inference, 15 models
-│   ├── octavia/      # Pi 5 — Gitea, Docker, NVMe
+│   ├── octavia/      # Pi 5 — RoadCode, Docker, NVMe
 │   ├── aria/         # Pi 5 — Container orchestration
 │   ├── lucidia/      # Pi 5 — 334 web apps, APIs
 │   ├── gematria/     # DO droplet — Edge gateway
