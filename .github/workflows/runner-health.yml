@@ -1,0 +1,43 @@
+name: Fleet Runner Health Check
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health:
+    strategy:
+      matrix:
+        include:
+          - runner: octavia
+            label: octavia
+          - runner: lucidia
+            label: lucidia
+          - runner: gematria
+            label: gematria
+          - runner: anastasia
+            label: anastasia
+          - runner: cecilia
+            label: cecilia
+          - runner: aria
+            label: aria
+      fail-fast: false
+    runs-on: [self-hosted, blackroad, ${{ matrix.label }}]
+    timeout-minutes: 5
+    steps:
+      - name: System Report
+        run: |
+          echo "## $(hostname) — $(date -u)" 
+          echo "Uptime: $(uptime)"
+          echo "Disk: $(df -h / | tail -1)"
+          echo "Memory: $(free -h 2>/dev/null | grep Mem || echo 'N/A')"
+          echo "CPU cores: $(nproc 2>/dev/null || echo '?')"
+          echo "Temp: $(cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf "%.1f°C", $1/1000}' || echo 'N/A')"
+          echo "Docker: $(docker --version 2>/dev/null || echo 'not installed')"
+          echo "Node: $(node --version 2>/dev/null || echo 'not installed')"
+          echo "Python: $(python3 --version 2>/dev/null || echo 'not installed')"
+          echo "Ollama: $(ollama --version 2>/dev/null || echo 'not installed')"
+          echo "Git: $(git --version 2>/dev/null)"
